@@ -178,11 +178,38 @@ section{max-width:1150px;margin:0 auto;padding:96px 22px 40px}
 .m-term-dots i:nth-child(3){background:var(--green)}
 .m-term-title{margin-left:6px;color:var(--dim);font-family:var(--mono);font-size:11px}
 .m-term-tag{margin-left:auto;color:var(--green);font-size:10px;letter-spacing:1px;font-family:var(--mono);font-weight:600}
-.m-term-body{padding:8px 12px;display:flex;flex-direction:column;gap:3px;line-height:1.45;max-height:85px;overflow-y:auto}
+.m-term-body{padding:8px 12px;display:flex;flex-direction:column;gap:4px;line-height:1.45;max-height:120px;overflow-y:auto;transition:max-height .3s ease}
+.m-term-body.has-cert{max-height:440px}
 .m-term-line{white-space:pre-wrap;word-break:break-word;color:var(--text);font-size:12px}
 .m-term-in-row{display:flex;align-items:center;gap:8px;font-size:12px;cursor:text}
 .m-term-in{flex:1;background:transparent;border:0;outline:0;color:#fff;font-family:var(--mono);font-size:12px;caret-color:var(--green);caret-shape:block;padding:0;margin:0;line-height:1.4}
 .modal-body .m-actions{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);padding-top:14px;margin-top:10px;gap:12px;flex-wrap:wrap}
+
+/* TERMINAL CERTIFICATE VIEWER */
+.m-term-cert-box{margin:8px 0;background:#030608;border:1px solid var(--green);border-radius:2px;box-shadow:0 0 16px rgba(57,255,20,.18);overflow:hidden;animation:termCertIn .3s ease-out}
+@keyframes termCertIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.m-term-cert-bar{display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:#091216;border-bottom:1px solid var(--line);font-size:11px;font-family:var(--ui)}
+.m-term-cert-title{color:var(--text);font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:6px}
+.m-term-cert-btn{background:rgba(57,255,20,.1);border:1px solid var(--green);color:var(--green);font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;cursor:pointer;transition:.2s}
+.m-term-cert-btn:hover{background:var(--green);color:#000;box-shadow:0 0 10px var(--green)}
+.m-term-cert-wrap{position:relative;width:100%;max-height:280px;background:#000;overflow:hidden;cursor:zoom-in;display:flex;align-items:center;justify-content:center}
+.m-term-cert-img{width:100%;height:auto;max-height:280px;object-fit:contain;display:block;transition:transform .3s ease}
+.m-term-cert-wrap:hover .m-term-cert-img{transform:scale(1.02)}
+.m-term-cert-overlay{position:absolute;inset:0;background:rgba(5,8,10,.35);opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s;pointer-events:none}
+.m-term-cert-wrap:hover .m-term-cert-overlay{opacity:1}
+.m-term-cert-hint{background:rgba(0,0,0,.85);border:1px solid var(--cyan);color:var(--cyan);font-family:var(--ui);font-size:11px;letter-spacing:1.5px;padding:4px 10px;font-weight:700;box-shadow:0 0 12px rgba(0,229,255,.4)}
+
+/* FULLSCREEN CERTIFICATE LIGHTBOX */
+.cert-lightbox-overlay{position:fixed;inset:0;background:rgba(3,5,7,.94);backdrop-filter:blur(8px);z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.cert-lightbox-overlay.open{opacity:1;pointer-events:auto}
+.cert-lightbox-win{background:var(--panel);border:1px solid var(--cyan);box-shadow:0 0 45px rgba(0,229,255,.25);width:min(900px,95vw);max-height:92vh;display:flex;flex-direction:column;position:relative}
+.cert-lightbox-win::before{content:"";position:absolute;top:-1px;left:-1px;width:16px;height:16px;border-top:2px solid var(--cyan);border-left:2px solid var(--cyan)}
+.cert-lightbox-win::after{content:"";position:absolute;bottom:-1px;right:-1px;width:16px;height:16px;border-bottom:2px solid var(--green);border-right:2px solid var(--green)}
+.cert-lightbox-body{display:flex;flex-direction:column;align-items:center;padding:16px;background:#020406;overflow-y:auto}
+.cert-lightbox-img-wrap{position:relative;width:100%;max-height:70vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cert-lightbox-img-wrap img{width:auto;max-width:100%;max-height:70vh;object-fit:contain;border:1px solid var(--line);box-shadow:0 8px 30px rgba(0,0,0,.8);cursor:zoom-in;transition:transform .25s ease}
+.cert-lightbox-img-wrap img.zoomed{transform:scale(1.55);cursor:zoom-out}
+.cert-lightbox-footer{width:100%;display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);flex-wrap:wrap;gap:8px}
 
 /* CONTACT */
 .contact{display:grid;grid-template-columns:1fr 1.3fr;gap:20px}
@@ -555,6 +582,29 @@ body.site-shake-granted::after{
   </div>
 </div>
 
+<!-- FULLSCREEN CERTIFICATE LIGHTBOX -->
+<div id="certLightbox" class="cert-lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="cert-lightbox-win">
+    <div class="win-bar">
+      <i></i><i></i><i></i>
+      <span id="certLightboxTitle">guest@bala-os: ~/credentials/certificate_viewer</span>
+      <button class="modal-close-btn" id="certLightboxClose" aria-label="Close certificate viewer">&times;</button>
+    </div>
+    <div class="cert-lightbox-body" id="certLightboxBody">
+      <div class="cert-lightbox-img-wrap" id="certLightboxImgWrap">
+        <img src="" alt="Certificate" id="certLightboxImg">
+      </div>
+      <div class="cert-lightbox-footer">
+        <span class="pd" style="font-size:11px">[ESC] TO CLOSE · CLICK IMAGE OR [Z] TO ZOOM</span>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="btn" style="padding:4px 12px;font-size:11px" id="certLightboxZoomBtn">./toggle_zoom [Z]</button>
+          <a id="certLightboxLink" href="#" target="_blank" rel="noopener noreferrer" class="btn c" style="padding:4px 12px;font-size:11px">./open_raw_image &nearr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
 'use strict';
@@ -871,6 +921,8 @@ const itemDetails = {
     time: '2026 // 8-HR NATIONAL CTF',
     title: "Cyber.l@ne'26 2.0 — AURA CTF",
     org: 'Mahendra Engineering College, Namakkal',
+    certImg: 'assets/evidence/cert_aura_ctf.jpg',
+    certTitle: "Cyber.l@ne'26 2.0 AURA CTF — 1st Prize State Championship Certificate",
     summary: 'Won first place out of competing engineering colleges across the state in a rigorous 8-hour live Capture The Flag (CTF) tournament. Solved complex challenge tracks in offensive security, binary analysis, and defense.',
     highlightsTitle: '// CHALLENGES_SOLVED',
     highlights: [
@@ -891,6 +943,8 @@ const itemDetails = {
     time: '2026 // 8-HR HACKATHON',
     title: "HACKNEXT'26 — Series 1.0",
     org: 'SNS College of Technology, Coimbatore',
+    certImg: 'assets/evidence/cert_hacknext26.jpg',
+    certTitle: "HACKNEXT'26 Series 1.0 — 2nd Prize Certificate of Appreciation",
     linkedinUrl: 'https://lnkd.in/p/gfE7sYPx',
     summary: 'Team Kernel secured 2nd Prize at HACKNEXT’26 – Series 1.0, an AI-powered 8-hour hackathon organized by SNS College of Technology. Challenged to think critically and build under pressure, we transformed security ideas into a working solution within the 8-hour sprint.',
     highlightsTitle: '// BRIEF_INTEL',
@@ -912,6 +966,8 @@ const itemDetails = {
     time: '2026 // 24-HR HACKATHON',
     title: 'SUSTAINVERSE 2K26 — 1st Runner-Up',
     org: 'DMI College of Engineering, Palanchur, Chennai',
+    certImg: 'assets/evidence/cert_sustainverse.png',
+    certTitle: "SUSTAINVERSE 2K26 — 1st Runner-Up (2nd Prize) Certificate",
     linkedinUrl: 'https://lnkd.in/p/gFbQrwrg',
     summary: 'TEAM KERNEL secured the 2nd Prize (1st Runner-Up) in the 24-Hour SUSTAINVERSE 2K26 Hackathon organized by DMI College of Engineering. Under continuous 24-hour sprint conditions, we transformed ideas into practical solutions, working under pressure and demonstrating resilience, dedication, and problem solving.',
     highlightsTitle: '// BRIEF_INTEL',
@@ -933,6 +989,8 @@ const itemDetails = {
     time: '2026 // NATIONAL CTF',
     title: 'Lun4R CTF 2026 — 29th Position',
     org: 'ROOT RIET · Rajadhani Institute of Engineering and Technology (RIET), Kerala',
+    certImg: 'assets/evidence/cert_lunar_ctf.jpg',
+    certTitle: "Lun4R CTF 2026 — Certificate of Participation (29th Position / 2,000+ Teams)",
     linkedinUrl: 'https://lnkd.in/p/g2uQWxHj',
     summary: 'TEAM KERNEL participated in Lun4R CTF 2026, a national-level cybersecurity Capture The Flag competition organized by ROOT RIET (the cybersecurity community of Rajadhani Institute of Engineering and Technology, Thiruvananthapuram). Our team secured the 29th position among 2,000+ participants nationwide.',
     highlightsTitle: '// BRIEF_INTEL',
@@ -954,6 +1012,8 @@ const itemDetails = {
     time: '2026 // 24-HR GLOBAL CTF',
     title: 'NULL ORIGIN CTF 2026 — 57th Place',
     org: 'Presented by CyberX',
+    certImg: 'assets/evidence/cert_nullorigin_ctf.jpg',
+    certTitle: "NULL ORIGIN CTF 2026 — International CTF Participation Certificate (57th Global)",
     linkedinUrl: 'https://lnkd.in/p/g9CzvbF5',
     summary: 'Competed in NULL ORIGIN CTF 2026, a 24-hour International Capture The Flag (CTF) competition presented by CyberX on 19 September 2026. Secured 57th position globally, solving practical cybersecurity challenges involving problem-solving, security analysis, and ethical hacking.',
     highlightsTitle: '// BRIEF_INTEL',
@@ -975,6 +1035,8 @@ const itemDetails = {
     time: 'HANDS-ON // CARNEGIE MELLON UNIVERSITY',
     title: 'picoCTF — 100+ Challenges Solved',
     org: 'CyLab Academy / Carnegie Mellon University',
+    certImg: null,
+    certTitle: "picoCTF 100+ Challenge Solves (Carnegie Mellon CyLab)",
     linkedinUrl: 'https://www.linkedin.com/in/balamurugan-s-62a119339/',
     summary: 'Solved 100+ rigorous CTF challenges on Carnegie Mellon University’s picoCTF platform, demonstrating hands-on offensive and defensive cybersecurity problem-solving across multiple core categories.',
     highlightsTitle: '// CHALLENGE_DOMAINS',
@@ -993,6 +1055,45 @@ const itemDetails = {
 };
 
 const modal = $('#evModal');
+const certLb = $('#certLightbox');
+const certLbImg = $('#certLightboxImg');
+const certLbTitle = $('#certLightboxTitle');
+const certLbLink = $('#certLightboxLink');
+
+function openCertLightbox(src, title){
+  if(!certLb || !certLbImg) return;
+  certLbImg.src = src;
+  certLbImg.alt = title || 'Certificate';
+  certLbImg.classList.remove('zoomed');
+  if(certLbLink) certLbLink.href = src;
+  if(certLbTitle) certLbTitle.textContent = 'guest@bala-os: ~/credentials/' + (title || 'certificate');
+  certLb.classList.add('open');
+  certLb.setAttribute('aria-hidden', 'false');
+}
+
+function closeCertLightbox(){
+  if(!certLb || !certLb.classList.contains('open')) return false;
+  certLb.classList.remove('open');
+  certLb.setAttribute('aria-hidden', 'true');
+  if(certLbImg) certLbImg.classList.remove('zoomed');
+  return true;
+}
+
+function toggleCertLbZoom(){
+  if(certLbImg) certLbImg.classList.toggle('zoomed');
+}
+
+if(certLb){
+  certLb.addEventListener('click', e => {
+    if(e.target === certLb) closeCertLightbox();
+  });
+  const cClose = $('#certLightboxClose');
+  if(cClose) cClose.addEventListener('click', closeCertLightbox);
+  const cZoom = $('#certLightboxZoomBtn');
+  if(cZoom) cZoom.addEventListener('click', toggleCertLbZoom);
+  if(certLbImg) certLbImg.addEventListener('click', toggleCertLbZoom);
+}
+
 function openEvModal(key){
   const d = itemDetails[key];
   if(!d) return;
@@ -1002,6 +1103,12 @@ function openEvModal(key){
   const promptDir = d.termDir || 'intel';
   const termCmd = d.termCmd || './verify_intel.sh';
   const termOut = d.termOut || '<span class="p">[+]</span> Status: verified OK';
+  const certTip = d.certImg 
+    ? `<div class="m-term-line pd" style="font-size:11px">// Tip: Type <span class="p">view certificate</span> to inspect credential, or <span class="pc">help</span></div>`
+    : `<div class="m-term-line pd" style="font-size:11px">// Tip: Type <span class="p">help</span> or <span class="pc">status</span></div>`;
+  const viewCertAction = d.certImg 
+    ? `<button class="btn c" style="padding:6px 14px;font-size:11px" id="modalViewCertBtn">./view_certificate &nearr;</button>` 
+    : '';
   
   $('#modalBody').innerHTML = `
     <div class="m-meta">
@@ -1030,6 +1137,7 @@ function openEvModal(key){
       <div class="m-term-body" id="mTermBody">
         <div class="m-term-line"><span class="p">guest@bala-os:~/${esc(promptDir)}$</span> <span class="pc">${esc(termCmd)}</span></div>
         <div class="m-term-line">${termOut}</div>
+        ${certTip}
         <div class="m-term-in-row" id="mTermInRow">
           <span class="p">guest@bala-os:~/${esc(promptDir)}$</span>
           <input class="m-term-in" id="mTermIn" autocomplete="off" spellcheck="false" aria-label="mini terminal prompt">
@@ -1040,7 +1148,8 @@ function openEvModal(key){
     <div class="m-actions">
       <span class="pd" style="font-size:11px">$ exit 0 // press ESC to close</span>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-        <a href="${esc(d.linkedinUrl || 'https://www.linkedin.com/in/balamurugan-s-62a119339/')}" target="_blank" rel="noopener noreferrer" class="btn c" style="padding:6px 14px;font-size:11px">./verify_on_linkedin &nearr;</a>
+        ${viewCertAction}
+        <a href="${esc(d.linkedinUrl || 'https://www.linkedin.com/in/balamurugan-s-62a119339/')}" target="_blank" rel="noopener noreferrer" class="btn" style="padding:6px 14px;font-size:11px">./verify_on_linkedin &nearr;</a>
         <button class="btn" style="padding:6px 14px;font-size:11px" id="modalDismissBtn">./close_window</button>
       </div>
     </div>
@@ -1075,6 +1184,68 @@ function bindMiniTerm(itemData, dir, cmd, outText){
   // Auto-focus immediately on modal open so the blinking cursor is right at the prompt
   setTimeout(focusInput, 60);
 
+  function showCert() {
+    const curRow = input.closest('.m-term-in-row');
+    if(!itemData.certImg){
+      const errRow = document.createElement('div');
+      errRow.className = 'm-term-line';
+      errRow.innerHTML = `<span class="pa">[!]</span> No certificate image file on record for ${esc(itemData.title)}. (Verified on Carnegie Mellon CyLab platform &amp; resume)`;
+      body.insertBefore(errRow, curRow);
+      body.scrollTop = body.scrollHeight;
+      input.focus();
+      return;
+    }
+
+    body.classList.add('has-cert');
+
+    const statusRow1 = document.createElement('div');
+    statusRow1.className = 'm-term-line';
+    statusRow1.innerHTML = `<span class="p">[+]</span> Loading certificate: <span class="pa">${esc(itemData.certTitle || itemData.title)}</span>`;
+
+    const statusRow2 = document.createElement('div');
+    statusRow2.className = 'm-term-line';
+    statusRow2.innerHTML = `<span class="pc">[OK]</span> Certificate rendered below. Click image to inspect fullscreen.`;
+
+    const certBox = document.createElement('div');
+    certBox.className = 'm-term-cert-box';
+    certBox.innerHTML = `
+      <div class="m-term-cert-bar">
+        <span class="m-term-cert-title"><span class="p">●</span> ${esc(itemData.certTitle || itemData.title)}</span>
+        <button class="m-term-cert-btn" type="button" title="View fullscreen [Z]">🔍 EXPAND</button>
+      </div>
+      <div class="m-term-cert-wrap" title="Click to view fullscreen">
+        <img src="${esc(itemData.certImg)}" alt="${esc(itemData.certTitle || itemData.title)}" class="m-term-cert-img" loading="eager">
+        <div class="m-term-cert-overlay">
+          <span class="m-term-cert-hint">CLICK TO ENLARGE 🔍</span>
+        </div>
+      </div>
+    `;
+
+    const openLb = () => openCertLightbox(itemData.certImg, itemData.certTitle || itemData.title);
+    const expandBtn = certBox.querySelector('.m-term-cert-btn');
+    const wrap = certBox.querySelector('.m-term-cert-wrap');
+    if(expandBtn) expandBtn.addEventListener('click', openLb);
+    if(wrap) wrap.addEventListener('click', openLb);
+
+    body.insertBefore(statusRow1, curRow);
+    body.insertBefore(statusRow2, curRow);
+    body.insertBefore(certBox, curRow);
+    body.scrollTop = body.scrollHeight;
+    input.focus();
+  }
+
+  const viewCertBtn = $('#modalViewCertBtn');
+  if(viewCertBtn){
+    viewCertBtn.addEventListener('click', () => {
+      const curRow = input.closest('.m-term-in-row');
+      const cmdRow = document.createElement('div');
+      cmdRow.className = 'm-term-line';
+      cmdRow.innerHTML = `<span class="p">guest@bala-os:~/${esc(dir)}$</span> view certificate`;
+      body.insertBefore(cmdRow, curRow);
+      showCert();
+    });
+  }
+
   input.addEventListener('keydown', e => {
     if(e.key === 'Enter'){
       const v = input.value.trim();
@@ -1086,9 +1257,14 @@ function bindMiniTerm(itemData, dir, cmd, outText){
         return;
       }
       if(low === 'clear' || low === 'cls'){
+        body.classList.remove('has-cert');
+        const certTip = itemData.certImg 
+          ? `<div class="m-term-line pd" style="font-size:11px">// Tip: Type <span class="p">view certificate</span> to inspect credential, or <span class="pc">help</span></div>`
+          : `<div class="m-term-line pd" style="font-size:11px">// Tip: Type <span class="p">help</span> or <span class="pc">status</span></div>`;
         body.innerHTML = `
           <div class="m-term-line"><span class="p">guest@bala-os:~/${esc(dir)}$</span> <span class="pc">${esc(cmd)}</span></div>
           <div class="m-term-line">${outText}</div>
+          ${certTip}
           <div class="m-term-in-row" id="mTermInRow">
             <span class="p">guest@bala-os:~/${esc(dir)}$</span>
             <input class="m-term-in" id="mTermIn" autocomplete="off" spellcheck="false" aria-label="mini terminal prompt">
@@ -1097,11 +1273,31 @@ function bindMiniTerm(itemData, dir, cmd, outText){
         bindMiniTerm(itemData, dir, cmd, outText);
         return;
       }
+
+      const isCertCmd = [
+        'view certificate', 'view cert', 'certificate', 'cert', 'show cert',
+        'show certificate', 'view-certificate', 'cat cert', 'cat certificate',
+        'open cert', 'open certificate', './view_certificate', 'view_certificate'
+      ].includes(low) || low.startsWith('view cert') || low.startsWith('cat cert') || low.startsWith('view certificate') || low === 'view';
+
+      const cmdRow = document.createElement('div');
+      cmdRow.className = 'm-term-line';
+      cmdRow.innerHTML = `<span class="p">guest@bala-os:~/${esc(dir)}$</span> ${esc(v)}`;
+      const currentInRow = input.closest('.m-term-in-row');
+      body.insertBefore(cmdRow, currentInRow);
+
+      if(isCertCmd){
+        showCert();
+        return;
+      }
+
       let reply = '';
       if(low === 'help'){
-        reply = '<span class="pc">Available:</span> ls, status, verify, whoami, linkedin, clear, exit';
+        const certHelp = itemData.certImg ? '<span class="p">view certificate</span>, ' : '';
+        reply = `<span class="pc">Available:</span> ${certHelp}ls, status, verify, whoami, linkedin, clear, exit`;
       } else if(low === 'ls'){
-        reply = `<span class="pc">${esc(cmd.split(' ')[0])}</span>  flag.txt  notes.md  exploit.py`;
+        const certFile = itemData.certImg ? `<span class="pa">certificate.${itemData.certImg.split('.').pop()}</span>  ` : '';
+        reply = `<span class="pc">${esc(cmd.split(' ')[0])}</span>  ${certFile}flag.txt  notes.md  exploit.py`;
       } else if(low === 'status'){
         reply = `<span class="pa">[STATUS]</span> ${esc(itemData.title)} &bull; ${esc(itemData.org)}`;
       } else if(low === 'verify' || low === 'run' || low === cmd.toLowerCase() || low.includes('flag')){
@@ -1112,16 +1308,12 @@ function bindMiniTerm(itemData, dir, cmd, outText){
         window.open(itemData.linkedinUrl || 'https://www.linkedin.com/in/balamurugan-s-62a119339/', '_blank');
         reply = '<span class="p">[OK]</span> Opening LinkedIn in new tab...';
       } else {
-        reply = `<span class="pr">bash: ${esc(v)}: command not found</span> (try: 'help' or 'exit')`;
+        reply = `<span class="pr">bash: ${esc(v)}: command not found</span> (try: 'view certificate' or 'help')`;
       }
-      const cmdRow = document.createElement('div');
-      cmdRow.className = 'm-term-line';
-      cmdRow.innerHTML = `<span class="p">guest@bala-os:~/${esc(dir)}$</span> ${esc(v)}`;
+
       const replyRow = document.createElement('div');
       replyRow.className = 'm-term-line';
       replyRow.innerHTML = reply;
-      const currentInRow = input.closest('.m-term-in-row');
-      body.insertBefore(cmdRow, currentInRow);
       body.insertBefore(replyRow, currentInRow);
       body.scrollTop = body.scrollHeight;
       input.focus();
@@ -1145,7 +1337,12 @@ modal.addEventListener('click', e => {
 });
 $('#modalCloseX').addEventListener('click', closeEvModal);
 document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeEvModal();
+  if(e.key === 'Escape'){
+    if(closeCertLightbox()) return;
+    closeEvModal();
+  } else if((e.key === 'z' || e.key === 'Z') && certLb && certLb.classList.contains('open')){
+    toggleCertLbZoom();
+  }
 });
 })();
 </script>
