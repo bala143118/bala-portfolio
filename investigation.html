@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Detective Evidence Board // Balamurugan S — Cyber Security Dossier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;700&family=Oxanium:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="investigation.css?v=hacker_v3">
+</head>
+<body>
+
+  <!-- Background Matrix Digital Rain (Cyberpunk Terminal) -->
+  <canvas id="matrix"></canvas>
+
+  <!-- Ambient CRT Scanline Overlay -->
+  <div class="room-scanlines"></div>
+
+  <!-- Dynamic Ambient Dust & Spotlight Layer -->
+  <canvas id="ambientDustCanvas" class="ambient-dust-canvas"></canvas>
+
+  <div class="detective-room" id="detectiveRoom">
+    <!-- TOP DOSSIER NAVIGATION & HEADER -->
+    <header class="dossier-nav">
+      <div class="nav-left">
+        <!-- MANDATORY RETURN CONTROL -->
+        <a href="index.html" class="btn-return" id="btnReturn" title="Return to original portfolio homepage">
+          <span class="arr">◄</span> RETURN TO PORTFOLIO
+        </a>
+        <div class="case-badge">
+          <span class="dot"></span>
+          <span>SYS_OP: <b style="color:var(--green)">BALA</b></span>
+          <span class="case-title">// EVIDENCE_TERMINAL</span>
+        </div>
+      </div>
+
+      <div class="nav-center">
+        <!-- CATEGORY FILTERS -->
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-btn active" data-filter="all">ALL EVIDENCE</button>
+          <button class="filter-btn" data-filter="ctf">CTF &amp; HACKATHONS</button>
+          <button class="filter-btn" data-filter="project">PROJECT DOSSIERS</button>
+          <button class="filter-btn" data-filter="academics">ACADEMICS</button>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <div class="evidence-counter-hud" id="evidenceCounterHud">
+          LOGGED: <b>5 ITEMS</b>
+        </div>
+        <button class="sfx-toggle-btn" id="sfxToggleBtn" title="Toggle audio feedback">
+          <span id="sfxIcon">🔊</span> SFX
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN EVIDENCE BOARD CONTAINER -->
+    <main class="board-wrapper" id="boardWrapper">
+      <!-- Ambient Detective Briefing Ribbon with Interactive HUD Keycaps -->
+      <div class="board-briefing">
+        <div class="briefing-text">
+          <span class="briefing-lead">// EVIDENCE_TERMINAL:</span> Select any dossier card to inspect verified cryptographic credentials, uncropped captures, and challenge write-ups.
+        </div>
+        <div class="briefing-shortcuts" id="briefingShortcuts">
+          <span class="hud-key-label">// HUD CONTROLS:</span>
+          <button class="keycap-btn" id="keyBtnPrev" type="button" title="Previous Evidence [Arrow Left]">
+            <kbd>◄</kbd><span>PREV</span>
+          </button>
+          <button class="keycap-btn" id="keyBtnNext" type="button" title="Next Evidence [Arrow Right]">
+            <span>NEXT</span><kbd>►</kbd>
+          </button>
+          <button class="keycap-btn keycap-accent" id="keyBtnZoom" type="button" title="Inspect / Zoom Selected [Z or Enter]">
+            <kbd>Z</kbd><span>INSPECT</span>
+          </button>
+          <button class="keycap-btn keycap-warn" id="keyBtnEsc" type="button" title="Return to Portfolio [ESC]">
+            <kbd>ESC</kbd><span>RETURN</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- EVIDENCE BOARD STAGE (COORDINATED 3D STAGE & STRINGS) -->
+      <div class="evidence-board-stage" id="boardStage">
+        <!-- Connecting Red Strings SVG Canvas Layer -->
+        <svg class="connecting-threads-svg" id="threadsSvg"></svg>
+
+        <!-- EVIDENCE PIN-BOARD (ORGANIC COMPOSITION) -->
+        <div class="evidence-grid" id="evidenceGrid">
+          <!-- Dynamic evidence cards rendered with visual hierarchy -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- CINEMATIC CERTIFICATE INSPECTION VIEWER (MODAL) -->
+  <div class="inspection-modal-overlay" id="inspectionModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="inspection-dossier-window" id="inspectionWindow">
+      <!-- Modal Top Bar -->
+      <div class="modal-top-bar">
+        <div class="modal-case-info">
+          <span class="modal-evidence-id" id="modalEvidenceId">EVIDENCE #001</span>
+          <span class="bar-sep">|</span>
+          <span class="modal-evidence-type" id="modalEvidenceType">CTF CHAMPIONSHIP</span>
+        </div>
+        <div class="modal-top-actions">
+          <button class="zoom-toggle-btn" id="modalZoomBtn" title="Toggle zoom magnification (Z)">
+            <span id="zoomIcon">🔍</span> ZOOM VIEW [Z]
+          </button>
+          <button class="modal-close-button" id="modalCloseBtn" aria-label="Close evidence inspection">
+            CLOSE EVIDENCE [ESC] &times;
+          </button>
+        </div>
+      </div>
+
+      <!-- Split Layout: Large Certificate + Detailed Dossier Panel -->
+      <div class="inspection-split-layout">
+        <!-- Left Pane: Full-Size Image with Laser Sweep & Zoom -->
+        <div class="certificate-display-pane" id="certDisplayPane">
+          <div class="certificate-image-wrap" id="certImageWrap">
+            <img src="" alt="Certificate" class="certificate-full-img" id="modalFullImage">
+            <div class="scanner-sweep-line" id="scannerSweepLine"></div>
+            <div class="zoom-hint-pill" id="zoomHintPill">CLICK TO ZOOM IN</div>
+          </div>
+          <!-- Fallback view if item is a document text dossier -->
+          <div class="evidence-doc-placeholder" id="modalDocPlaceholder" style="display:none;min-height:380px">
+            <h4 id="modalDocTitle" style="font-size:18px;margin-bottom:12px;color:var(--green)"></h4>
+            <div id="modalDocBody" style="font-size:13px;line-height:1.7;color:var(--text)"></div>
+          </div>
+        </div>
+
+        <!-- Right Pane: Case Details & Authentic Intel -->
+        <div class="case-details-pane">
+          <div class="dossier-tagline" id="modalTagline">// VERIFIED EVIDENCE BRIEFING</div>
+          <h2 class="dossier-event-name" id="modalEventName">EVENT TITLE</h2>
+          <div class="dossier-institution" id="modalInstitution">Institution</div>
+
+          <div class="dossier-prize-banner" id="modalPrizeBanner">
+            <span id="modalPrizeIcon">🏆</span>
+            <span id="modalPrizeText">1ST PRIZE WINNER</span>
+          </div>
+
+          <div class="dossier-section-title">// SUMMARY OF EVIDENCE</div>
+          <p class="dossier-description" id="modalDescription">Description of this achievement.</p>
+
+          <div class="dossier-section-title" id="modalHighlightsTitle">// INVESTIGATION HIGHLIGHTS</div>
+          <ul class="dossier-highlights-list" id="modalHighlightsList"></ul>
+
+          <div class="dossier-section-title">// CAPABILITIES &amp; EVIDENCE TAGS</div>
+          <div class="dossier-chips-wrap" id="modalChipsWrap"></div>
+
+          <!-- Official Proof Verification Links -->
+          <div class="dossier-actions" id="modalActions">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn-proof" id="modalProofBtn">
+              ./verify_authenticity &nearr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Bottom Navigation Bar (Prev / Counter / Next) -->
+      <div class="modal-bottom-bar">
+        <button class="nav-arrow-btn" id="modalPrevBtn">
+          ◄ PREVIOUS EVIDENCE
+        </button>
+        <div class="modal-counter-indicator" id="modalCounterIndicator">
+          1 / 5
+        </div>
+        <button class="nav-arrow-btn" id="modalNextBtn">
+          NEXT EVIDENCE ►
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dedicated Upgraded Evidence Board Script -->
+  <script src="investigation.js?v=hacker_v3"></script>
+</body>
+</html>

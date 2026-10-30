@@ -1,0 +1,1303 @@
+:root {
+  --bg: #05080a;
+  --bg2: #0a1014;
+  --panel: #0c1418;
+  --panel-border: #14262b;
+  --line: #14262b;
+  --green: #39ff14;
+  --cyan: #00e5ff;
+  --amber: #ffb000;
+  --red: #ff3b5c;
+  --text: #bfe9d0;
+  --text-dim: #5f8573;
+  --dim: #5f8573;
+  --paper-bg: #0c1418;
+  --mono: 'JetBrains Mono', monospace;
+  --disp: 'Bebas Neue', sans-serif;
+  --ui: 'Oxanium', sans-serif;
+  --mouse-x: 50%;
+  --mouse-y: 35%;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#matrix {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   1. DETECTIVE ROOM ATMOSPHERE, SPOTLIGHT & DUST
+   ========================================================================== */
+.detective-room {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  padding-bottom: 90px;
+  background: 
+    radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 35%), rgba(0, 229, 255, 0.05) 0%, transparent 75%),
+    radial-gradient(circle 800px at var(--mouse-x, 50%) var(--mouse-y, 35%), rgba(57, 255, 20, 0.03) 0%, transparent 70%),
+    rgba(5, 8, 10, 0.92);
+  z-index: 1;
+}
+
+/* Floating ambient dust motes canvas layer */
+.ambient-dust-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.35;
+}
+
+/* Subtle CRT scanline overlay */
+.room-scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 900;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px);
+}
+
+/* ==========================================================================
+   2. TOP DOSSIER NAVIGATION & HEADER
+   ========================================================================== */
+.dossier-nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 52px;
+  background: rgba(5, 8, 10, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--green);
+  box-shadow: 0 0 18px rgba(57, 255, 20, 0.15);
+  font-family: var(--ui);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nav-left, .nav-center, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* RETURN TO PORTFOLIO BUTTON */
+.btn-return {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--green);
+  background: transparent;
+  border: 1px solid var(--green);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.15);
+}
+
+.btn-return:hover {
+  background: var(--green);
+  color: #000 !important;
+  box-shadow: 0 0 22px var(--green);
+  transform: translateY(-1px);
+}
+
+.btn-return .arr {
+  font-size: 14px;
+}
+
+.case-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--dim);
+}
+
+.case-badge .dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.case-title {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 13px;
+}
+
+/* Category Filter Tabs */
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-btn {
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 5px 13px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: rgba(0, 229, 255, 0.08);
+}
+
+.filter-btn.active {
+  background: rgba(0, 229, 255, 0.14);
+  color: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
+  font-weight: 700;
+}
+
+.evidence-counter-hud {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--amber);
+  background: #090e12;
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.sfx-toggle-btn {
+  font-family: var(--ui);
+  font-size: 11px;
+  padding: 5px 10px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--dim);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sfx-toggle-btn:hover {
+  color: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+}
+
+/* ==========================================================================
+   3. EVIDENCE BOARD WRAPPER & PARALLAX
+   ========================================================================== */
+.board-wrapper {
+  position: relative;
+  max-width: 1440px;
+  margin: 24px auto 0;
+  padding: 20px 28px;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+/* Board Banner Note */
+.board-briefing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 12px 20px;
+  background: rgba(12, 20, 24, 0.88);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(0, 0, 0, 0.4);
+  font-size: 12px;
+  color: var(--dim);
+  flex-wrap: wrap;
+  gap: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.briefing-lead {
+  color: var(--green);
+  font-family: var(--ui);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.briefing-shortcuts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hud-key-label {
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--amber);
+  margin-right: 4px;
+  font-weight: 700;
+}
+
+/* Cyber Terminal Keycap Buttons */
+.keycap-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: #090e12;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.15s ease-out;
+  box-shadow: 0 2px 0 #000, 0 0 8px rgba(0, 229, 255, 0.08);
+  user-select: none;
+}
+
+.keycap-btn kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #14262b;
+  border: 1px solid var(--cyan);
+  border-radius: 2px;
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+.keycap-btn:hover {
+  border-color: var(--cyan);
+  color: #fff;
+  background: rgba(0, 229, 255, 0.15);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.keycap-btn:active, .keycap-btn.active-cap {
+  transform: translateY(1px);
+  background: var(--cyan) !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px var(--cyan) !important;
+}
+
+.keycap-btn:active kbd, .keycap-btn.active-cap kbd {
+  background: #000 !important;
+  color: var(--cyan) !important;
+  border-color: #000 !important;
+}
+
+.keycap-btn.keycap-accent {
+  border-color: var(--green);
+}
+
+.keycap-btn.keycap-accent kbd {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.keycap-btn.keycap-accent:hover {
+  border-color: var(--green);
+  background: rgba(57, 255, 20, 0.15);
+  box-shadow: 0 0 14px rgba(57, 255, 20, 0.4);
+}
+
+.keycap-btn.keycap-accent:active, .keycap-btn.keycap-accent.active-cap {
+  background: var(--green) !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px var(--green) !important;
+}
+
+.keycap-btn.keycap-accent:active kbd, .keycap-btn.keycap-accent.active-cap kbd {
+  background: #000 !important;
+  color: var(--green) !important;
+  border-color: #000 !important;
+}
+
+.keycap-btn.keycap-warn {
+  border-color: var(--amber);
+}
+
+.keycap-btn.keycap-warn kbd {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.keycap-btn.keycap-warn:hover {
+  border-color: var(--amber);
+  background: rgba(255, 176, 0, 0.15);
+  box-shadow: 0 0 14px rgba(255, 176, 0, 0.4);
+}
+
+.keycap-btn.keycap-warn:active, .keycap-btn.keycap-warn.active-cap {
+  background: var(--amber) !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px var(--amber) !important;
+}
+
+.keycap-btn.keycap-warn:active kbd, .keycap-btn.keycap-warn.active-cap kbd {
+  background: #000 !important;
+  color: var(--amber) !important;
+  border-color: #000 !important;
+}
+
+/* Stage containing both SVG threads layer and evidence grid in synchronized 3D perspective */
+.evidence-board-stage {
+  position: relative;
+  width: 100%;
+  transform: rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg));
+  transform-origin: center center;
+  transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transform-style: preserve-3d;
+}
+
+/* SVG Connecting Red Strings Overlay */
+.connecting-threads-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.thread-line {
+  stroke: rgba(0, 229, 255, 0.45);
+  stroke-width: 1.6;
+  stroke-dasharray: 4, 3;
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.5));
+  transition: all 0.25s ease;
+}
+
+.thread-line.active-thread {
+  stroke: var(--green);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+  filter: drop-shadow(0 0 10px var(--green)) drop-shadow(0 0 20px rgba(57, 255, 20, 0.8));
+}
+
+.thread-knot {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 6px var(--cyan));
+}
+
+/* ==========================================================================
+   4. EVIDENCE BOARD GRID & HIERARCHICAL COMPOSITION
+   ========================================================================== */
+.evidence-grid {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 38px 32px;
+  align-items: start;
+}
+
+/* ==========================================================================
+   5. EVIDENCE CARDS (POLAROID & DOCUMENT FRAMES)
+   ========================================================================== */
+.evidence-item {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 
+    0 16px 36px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(0, 0, 0, 0.6);
+  padding: 18px 18px 16px;
+  cursor: pointer;
+  transition: 
+    transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1),
+    box-shadow 0.25s cubic-bezier(0.165, 0.84, 0.44, 1),
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+  transform-origin: center top;
+}
+
+/* Cyber Hacker Corner Brackets (from index.html) */
+.evidence-item::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid var(--green);
+  border-left: 2px solid var(--green);
+  pointer-events: none;
+  z-index: 15;
+}
+
+.evidence-item::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 14px;
+  height: 14px;
+  border-bottom: 2px solid var(--cyan);
+  border-right: 2px solid var(--cyan);
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* Subtle Natural Tilt Angles */
+.evidence-item:nth-child(4n+1) { transform: rotate(-1deg); }
+.evidence-item:nth-child(4n+2) { transform: rotate(1.2deg); }
+.evidence-item:nth-child(4n+3) { transform: rotate(-0.6deg); }
+.evidence-item:nth-child(4n)   { transform: rotate(0.8deg); }
+
+/* Featured Item Elevated Presence */
+.evidence-item.featured-item {
+  border-color: rgba(57, 255, 20, 0.4);
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(57, 255, 20, 0.16);
+}
+
+.evidence-item:hover {
+  transform: translateY(-8px) scale(1.02) rotate(0deg) !important;
+  border-color: var(--cyan);
+  background: #0d151a;
+  box-shadow: 
+    0 24px 50px rgba(0, 0, 0, 0.95),
+    0 0 28px rgba(0, 229, 255, 0.28);
+  z-index: 25;
+}
+
+/* Active Selected Card (HUD & Keyboard navigation) */
+.evidence-item.is-selected {
+  transform: translateY(-8px) scale(1.02) rotate(0deg) !important;
+  border-color: var(--green) !important;
+  background: #0d1a1b !important;
+  box-shadow: 
+    0 0 30px rgba(57, 255, 20, 0.35),
+    inset 0 0 20px rgba(57, 255, 20, 0.08) !important;
+  z-index: 30 !important;
+}
+
+.evidence-item.is-selected::before {
+  border-color: #fff;
+  width: 18px;
+  height: 18px;
+  box-shadow: 0 0 8px var(--green);
+}
+
+.evidence-item.is-selected::after {
+  border-color: #fff;
+  width: 18px;
+  height: 18px;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+/* Cyber Mounting Brackets on Top Corners */
+.tape-strip {
+  position: absolute;
+  top: -6px;
+  width: 36px;
+  height: 10px;
+  background: rgba(0, 229, 255, 0.1);
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.25);
+  pointer-events: none;
+  z-index: 12;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+}
+
+.tape-left {
+  left: 14px;
+  transform: rotate(-4deg);
+}
+
+.tape-right {
+  right: 14px;
+  transform: rotate(4deg);
+}
+
+/* Cyber Sensor Diode / Pin Anchor */
+.pin-anchor {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.pushpin {
+  width: 14px;
+  height: 14px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green), 0 0 20px var(--green);
+  border: 1px solid #fff;
+  position: relative;
+}
+
+.pushpin::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 6px;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+}
+
+.pushpin.gold {
+  background: var(--amber);
+  box-shadow: 0 0 10px var(--amber), 0 0 20px var(--amber);
+  border-color: #fff;
+}
+.pushpin.gold::after {
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
+}
+
+.pushpin.cyan {
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+  border-color: #fff;
+}
+.pushpin.cyan::after {
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan);
+}
+
+/* Card Header Tag */
+.evidence-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #1a2732;
+  font-family: var(--ui);
+  font-size: 11px;
+}
+
+.evidence-id-tag {
+  color: var(--amber);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.evidence-type-badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border: 1px solid var(--panel-border);
+  color: var(--cyan);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Certificate Photo Frame with Photo Corners & Light Sweep */
+.evidence-photo-frame {
+  position: relative;
+  width: 100%;
+  height: 225px;
+  background: #050709;
+  border: 1px solid #1a2834;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Photo Corner Mounting Brackets */
+.photo-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: rgba(255, 255, 255, 0.3);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.pc-tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.pc-tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.pc-bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.pc-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+.evidence-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.4s ease, filter 0.3s ease;
+  filter: brightness(0.92) contrast(1.05);
+}
+
+/* Hover Light-Sweep Sheen across photo surface */
+.evidence-photo-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+  transition: left 0.6s ease;
+}
+
+.evidence-item:hover .evidence-photo-frame::after {
+  left: 150%;
+}
+
+.evidence-item:hover .evidence-photo {
+  transform: scale(1.04);
+  filter: brightness(1) contrast(1.08);
+}
+
+/* Click Overlay Indicator */
+.click-inspect-hint {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 9, 13, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  font-family: var(--ui);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  font-size: 12px;
+}
+
+.click-inspect-hint .hint-icon {
+  font-size: 24px;
+  color: var(--green);
+  animation: pulseDot 1.5s infinite;
+}
+
+.evidence-item:hover .click-inspect-hint {
+  opacity: 1;
+}
+
+/* Text Evidence / Document Card Style (HostelFix, etc.) */
+.evidence-doc-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #081016;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 3px solid var(--green);
+  font-family: var(--mono);
+}
+
+.evidence-doc-placeholder h4 {
+  font-family: var(--ui);
+  color: #fff;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.evidence-doc-placeholder p {
+  color: var(--text-dim);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Sticky Note / Evidence Caption Footer */
+.evidence-caption-box {
+  margin-top: 14px;
+}
+
+.evidence-title {
+  font-family: var(--ui);
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  line-height: 1.35;
+}
+
+.evidence-institution {
+  color: var(--cyan);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.evidence-stamp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #182530;
+  font-size: 11px;
+}
+
+.rubber-stamp {
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 3px 10px;
+  border: 1px solid var(--green);
+  color: var(--green);
+  text-transform: uppercase;
+  display: inline-block;
+  background: rgba(57, 255, 20, 0.08);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.25);
+}
+
+.rubber-stamp.second {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(255, 176, 0, 0.08);
+  box-shadow: 0 0 10px rgba(255, 176, 0, 0.25);
+}
+
+.rubber-stamp.classified {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0, 229, 255, 0.08);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+}
+
+/* ==========================================================================
+   6. CINEMATIC CERTIFICATE INSPECTION VIEWER (MODAL)
+   ========================================================================== */
+.inspection-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 5, 7, 0.94);
+  backdrop-filter: blur(14px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.inspection-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inspection-dossier-window {
+  position: relative;
+  width: min(1240px, 95vw);
+  max-height: 90vh;
+  background: #090e12;
+  border: 1px solid var(--panel-border);
+  box-shadow: 
+    0 30px 70px rgba(0, 0, 0, 0.95),
+    0 0 45px rgba(0, 229, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95) translateY(14px);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+}
+
+.inspection-modal-overlay.open .inspection-dossier-window {
+  transform: scale(1) translateY(0);
+}
+
+/* Corner Detective Brackets */
+.inspection-dossier-window::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 22px;
+  height: 22px;
+  border-top: 2px solid var(--cyan);
+  border-left: 2px solid var(--cyan);
+  z-index: 20;
+}
+
+.inspection-dossier-window::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 22px;
+  height: 22px;
+  border-bottom: 2px solid var(--green);
+  border-right: 2px solid var(--green);
+  z-index: 20;
+}
+
+/* Modal Top Bar */
+.modal-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 22px;
+  background: #060a0d;
+  border-bottom: 1px solid var(--panel-border);
+  font-family: var(--ui);
+  font-size: 12px;
+}
+
+.modal-case-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-evidence-id {
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 2px;
+}
+
+.bar-sep {
+  color: var(--text-dim);
+}
+
+.modal-evidence-type {
+  color: var(--cyan);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.modal-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.zoom-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-family: var(--ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.zoom-toggle-btn:hover {
+  background: var(--cyan);
+  color: #000 !important;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+}
+
+.modal-close-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--panel-border);
+  color: var(--text-dim);
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-close-button:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* Inspection Body: 2 Columns (Certificate Image + Case Details) */
+.inspection-split-layout {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  flex: 1;
+  overflow: hidden;
+  min-height: 500px;
+}
+
+/* Left: Large Certificate Display with Scanner & Zoom Pan */
+.certificate-display-pane {
+  position: relative;
+  background: #040608;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--panel-border);
+  overflow: hidden;
+}
+
+.certificate-image-wrap {
+  position: relative;
+  max-width: 100%;
+  max-height: 72vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.95);
+  background: #000;
+  cursor: zoom-in;
+  transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.certificate-image-wrap.is-zoomed {
+  cursor: zoom-out;
+  transform: scale(1.6);
+  z-index: 50;
+}
+
+.certificate-full-img {
+  max-width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  display: block;
+}
+
+.zoom-hint-pill {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(5, 10, 14, 0.85);
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  padding: 4px 10px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-family: var(--ui);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* Cyan/Green Detective Laser Sweep Line */
+.scanner-sweep-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--cyan), var(--green), transparent);
+  box-shadow: 0 0 15px var(--cyan);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.inspection-modal-overlay.open .scanner-sweep-line {
+  animation: laserScan 2.4s ease-in-out 1;
+}
+
+@keyframes laserScan {
+  0% { top: 0%; opacity: 0; }
+  15% { opacity: 0.95; }
+  85% { opacity: 0.95; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Right: Case Details Dossier Panel */
+.case-details-pane {
+  padding: 26px 30px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background: #090e13;
+}
+
+.dossier-tagline {
+  color: var(--amber);
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+
+.dossier-event-name {
+  font-family: var(--ui);
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+.dossier-institution {
+  color: var(--cyan);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.dossier-prize-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: rgba(57, 255, 20, 0.08);
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-family: var(--ui);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.dossier-prize-banner.second {
+  background: rgba(255, 176, 0, 0.08);
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.dossier-section-title {
+  color: var(--amber);
+  font-family: var(--ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin: 14px 0 6px;
+}
+
+.dossier-description {
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.dossier-highlights-list {
+  list-style: none;
+  margin: 8px 0 16px;
+}
+
+.dossier-highlights-list li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.dossier-highlights-list li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.dossier-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 20px;
+}
+
+.dossier-chip {
+  font-size: 11px;
+  padding: 3px 9px;
+  background: #05090c;
+  border: 1px solid var(--panel-border);
+  color: var(--cyan);
+}
+
+/* Action Links inside Modal */
+.dossier-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px dashed var(--panel-border);
+}
+
+.btn-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+  background: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-proof:hover {
+  background: var(--cyan);
+  color: #000 !important;
+  box-shadow: 0 0 16px var(--cyan);
+}
+
+/* Modal Bottom Navigation Bar (Prev / Next) */
+.modal-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 22px;
+  background: #060a0d;
+  border-top: 1px solid var(--panel-border);
+  font-family: var(--ui);
+  font-size: 12px;
+}
+
+.nav-arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #0c1318;
+  border: 1px solid var(--panel-border);
+  color: var(--text);
+  padding: 7px 16px;
+  font-family: var(--ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-arrow-btn:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.modal-counter-indicator {
+  color: var(--amber);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN FOR TABLETS & MOBILE
+   ========================================================================== */
+@media (max-width: 900px) {
+  .inspection-split-layout {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+  .certificate-display-pane {
+    border-right: 0;
+    border-bottom: 1px solid var(--panel-border);
+    padding: 16px;
+    max-height: 380px;
+  }
+  .certificate-full-img {
+    max-height: 340px;
+  }
+  .case-details-pane {
+    padding: 20px 16px;
+    overflow-y: visible;
+  }
+  .dossier-nav {
+    padding: 10px 14px;
+  }
+  .case-title {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .evidence-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .inspection-dossier-window {
+    width: 96vw;
+    max-height: 94vh;
+  }
+  .filter-tabs {
+    overflow-x: auto;
+    max-width: 100%;
+    padding-bottom: 4px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ambient-dust-canvas {
+    display: none !important;
+  }
+}
