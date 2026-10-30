@@ -1,0 +1,10 @@
+tmp_browser_profile/
+tmp_browser_profile_inspect/
+tmp_browser_profile_shots/
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
