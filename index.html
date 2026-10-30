@@ -183,6 +183,11 @@ section{max-width:1150px;margin:0 auto;padding:96px 22px 40px}
 .m-term-line{white-space:pre-wrap;word-break:break-word;color:var(--text);font-size:12px}
 .m-term-in-row{display:flex;align-items:center;gap:8px;font-size:12px;cursor:text}
 .m-term-in{flex:1;background:transparent;border:0;outline:0;color:#fff;font-family:var(--mono);font-size:12px;caret-color:var(--green);caret-shape:block;padding:0;margin:0;line-height:1.4}
+.m-term-bottom-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:#05090c;border-top:1px dashed var(--line);font-size:11px;font-family:var(--mono);color:var(--dim);user-select:none}
+.m-hint-text{display:flex;align-items:center;gap:6px;cursor:pointer;transition:color .2s}
+.m-hint-text:hover{color:var(--text)}
+.m-hint-btn{background:rgba(57,255,20,.08);border:1px solid var(--green);color:var(--green);font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 10px;cursor:pointer;transition:.2s}
+.m-hint-btn:hover{background:var(--green);color:#000;box-shadow:0 0 10px var(--green)}
 .modal-body .m-actions{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);padding-top:14px;margin-top:10px;gap:12px;flex-wrap:wrap}
 
 /* TERMINAL CERTIFICATE VIEWER */
@@ -1103,9 +1108,14 @@ function openEvModal(key){
   const promptDir = d.termDir || 'intel';
   const termCmd = d.termCmd || './verify_intel.sh';
   const termOut = d.termOut || '<span class="p">[+]</span> Status: verified OK';
-  const certTip = d.certImg 
-    ? `<div class="m-term-line pd" style="font-size:11px">// Tip: Type <span class="p">view certificate</span> to inspect credential, or <span class="pc">help</span></div>`
-    : `<div class="m-term-line pd" style="font-size:11px">// Tip: Type <span class="p">help</span> or <span class="pc">status</span></div>`;
+  const bottomBar = d.certImg 
+    ? `<div class="m-term-bottom-bar" id="mTermBottomBar">
+        <span class="m-hint-text" id="mHintPill" title="Click to view certificate"><span class="pa">💡 HINT:</span> Type <span class="p">"view certificate"</span> to view certificate</span>
+        <button type="button" class="m-hint-btn" id="mHintBtn" title="Run view certificate">./view_certificate &nearr;</button>
+      </div>`
+    : `<div class="m-term-bottom-bar" id="mTermBottomBar">
+        <span class="m-hint-text" id="mHintPill"><span class="pa">💡 HINT:</span> Type <span class="p">"help"</span> or <span class="pc">"status"</span></span>
+      </div>`;
   const viewCertAction = d.certImg 
     ? `<button class="btn c" style="padding:6px 14px;font-size:11px" id="modalViewCertBtn">./view_certificate &nearr;</button>` 
     : '';
@@ -1137,12 +1147,12 @@ function openEvModal(key){
       <div class="m-term-body" id="mTermBody">
         <div class="m-term-line"><span class="p">guest@bala-os:~/${esc(promptDir)}$</span> <span class="pc">${esc(termCmd)}</span></div>
         <div class="m-term-line">${termOut}</div>
-        ${certTip}
         <div class="m-term-in-row" id="mTermInRow">
           <span class="p">guest@bala-os:~/${esc(promptDir)}$</span>
           <input class="m-term-in" id="mTermIn" autocomplete="off" spellcheck="false" aria-label="mini terminal prompt">
         </div>
       </div>
+      ${bottomBar}
     </div>
 
     <div class="m-actions">
@@ -1234,17 +1244,23 @@ function bindMiniTerm(itemData, dir, cmd, outText){
     input.focus();
   }
 
+  const triggerCertRun = () => {
+    const curRow = input.closest('.m-term-in-row');
+    const cmdRow = document.createElement('div');
+    cmdRow.className = 'm-term-line';
+    cmdRow.innerHTML = `<span class="p">guest@bala-os:~/${esc(dir)}$</span> view certificate`;
+    body.insertBefore(cmdRow, curRow);
+    showCert();
+  };
+
   const viewCertBtn = $('#modalViewCertBtn');
-  if(viewCertBtn){
-    viewCertBtn.addEventListener('click', () => {
-      const curRow = input.closest('.m-term-in-row');
-      const cmdRow = document.createElement('div');
-      cmdRow.className = 'm-term-line';
-      cmdRow.innerHTML = `<span class="p">guest@bala-os:~/${esc(dir)}$</span> view certificate`;
-      body.insertBefore(cmdRow, curRow);
-      showCert();
-    });
-  }
+  if(viewCertBtn) viewCertBtn.addEventListener('click', triggerCertRun);
+
+  const hintBtn = $('#mHintBtn');
+  if(hintBtn) hintBtn.addEventListener('click', triggerCertRun);
+
+  const hintPill = $('#mHintPill');
+  if(hintPill && itemData.certImg) hintPill.addEventListener('click', triggerCertRun);
 
   input.addEventListener('keydown', e => {
     if(e.key === 'Enter'){
@@ -1258,13 +1274,9 @@ function bindMiniTerm(itemData, dir, cmd, outText){
       }
       if(low === 'clear' || low === 'cls'){
         body.classList.remove('has-cert');
-        const certTip = itemData.certImg 
-          ? `<div class="m-term-line pd" style="font-size:11px">// Tip: Type <span class="p">view certificate</span> to inspect credential, or <span class="pc">help</span></div>`
-          : `<div class="m-term-line pd" style="font-size:11px">// Tip: Type <span class="p">help</span> or <span class="pc">status</span></div>`;
         body.innerHTML = `
           <div class="m-term-line"><span class="p">guest@bala-os:~/${esc(dir)}$</span> <span class="pc">${esc(cmd)}</span></div>
           <div class="m-term-line">${outText}</div>
-          ${certTip}
           <div class="m-term-in-row" id="mTermInRow">
             <span class="p">guest@bala-os:~/${esc(dir)}$</span>
             <input class="m-term-in" id="mTermIn" autocomplete="off" spellcheck="false" aria-label="mini terminal prompt">
@@ -1292,8 +1304,12 @@ function bindMiniTerm(itemData, dir, cmd, outText){
       }
 
       let reply = '';
-      if(low === 'help'){
-        const certHelp = itemData.certImg ? '<span class="p">view certificate</span>, ' : '';
+      if(low === 'hint' || low === 'hints' || low === 'tip' || low === 'tips'){
+        reply = itemData.certImg
+          ? '<span class="pa">[HINT]</span> Type <span class="p">"view certificate"</span> to view certificate.'
+          : '<span class="pa">[HINT]</span> Type <span class="p">status</span> or <span class="pc">verify</span> to inspect intel.';
+      } else if(low === 'help'){
+        const certHelp = itemData.certImg ? '<span class="p">view certificate</span>, <span class="p">hint</span>, ' : '<span class="p">hint</span>, ';
         reply = `<span class="pc">Available:</span> ${certHelp}ls, status, verify, whoami, linkedin, clear, exit`;
       } else if(low === 'ls'){
         const certFile = itemData.certImg ? `<span class="pa">certificate.${itemData.certImg.split('.').pop()}</span>  ` : '';
@@ -1308,7 +1324,7 @@ function bindMiniTerm(itemData, dir, cmd, outText){
         window.open(itemData.linkedinUrl || 'https://www.linkedin.com/in/balamurugan-s-62a119339/', '_blank');
         reply = '<span class="p">[OK]</span> Opening LinkedIn in new tab...';
       } else {
-        reply = `<span class="pr">bash: ${esc(v)}: command not found</span> (try: 'view certificate' or 'help')`;
+        reply = `<span class="pr">bash: ${esc(v)}: command not found</span> (try: 'hint' or 'view certificate')`;
       }
 
       const replyRow = document.createElement('div');
