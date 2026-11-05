@@ -167,42 +167,7 @@ section{max-width:1150px;margin:0 auto;padding:96px 22px 40px}
 .modal-body li{padding-left:18px;position:relative;margin-bottom:6px;color:var(--text)}
 .modal-body li::before{content:">";position:absolute;left:0;color:var(--green)}
 .modal-body .m-chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 16px}
-/* MODAL MINI TERMINAL */
-.m-term-box{background:#060b0e;border:1px solid var(--line);box-shadow:inset 0 0 25px rgba(0,0,0,.6),0 0 16px rgba(0,229,255,.05);margin:6px 0 14px;border-radius:3px;overflow:hidden;font-size:12px;font-family:var(--mono);cursor:text;transition:border-color .2s,box-shadow .2s}
-.m-term-box:focus-within{border-color:var(--green);box-shadow:inset 0 0 25px rgba(0,0,0,.6),0 0 16px rgba(57,255,20,.18)}
-.m-term-bar{display:flex;align-items:center;gap:6px;padding:5px 10px;background:#091216;border-bottom:1px solid var(--line);font-family:var(--ui);font-size:11px;color:var(--dim);user-select:none}
-.m-term-dots{display:flex;gap:5px;align-items:center}
-.m-term-dots i{width:7px;height:7px;border-radius:50%;display:inline-block}
-.m-term-dots i:nth-child(1){background:var(--red)}
-.m-term-dots i:nth-child(2){background:var(--amber)}
-.m-term-dots i:nth-child(3){background:var(--green)}
-.m-term-title{margin-left:6px;color:var(--dim);font-family:var(--mono);font-size:11px}
-.m-term-tag{margin-left:auto;color:var(--green);font-size:10px;letter-spacing:1px;font-family:var(--mono);font-weight:600}
-.m-term-body{padding:8px 12px;display:flex;flex-direction:column;gap:4px;line-height:1.45;max-height:120px;overflow-y:auto;transition:max-height .3s ease}
-.m-term-body.has-cert{max-height:440px}
-.m-term-line{white-space:pre-wrap;word-break:break-word;color:var(--text);font-size:12px}
-.m-term-in-row{display:flex;align-items:center;gap:8px;font-size:12px;cursor:text}
-.m-term-in{flex:1;background:transparent;border:0;outline:0;color:#fff;font-family:var(--mono);font-size:12px;caret-color:var(--green);caret-shape:block;padding:0;margin:0;line-height:1.4}
-.m-term-bottom-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:#05090c;border-top:1px dashed var(--line);font-size:11px;font-family:var(--mono);color:var(--dim);user-select:none}
-.m-hint-text{display:flex;align-items:center;gap:6px;cursor:pointer;transition:color .2s}
-.m-hint-text:hover{color:var(--text)}
-.m-hint-btn{background:rgba(57,255,20,.08);border:1px solid var(--green);color:var(--green);font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 10px;cursor:pointer;transition:.2s}
-.m-hint-btn:hover{background:var(--green);color:#000;box-shadow:0 0 10px var(--green)}
-.modal-body .m-actions{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);padding-top:14px;margin-top:10px;gap:12px;flex-wrap:wrap}
-
-/* TERMINAL CERTIFICATE VIEWER */
-.m-term-cert-box{margin:8px 0;background:#030608;border:1px solid var(--green);border-radius:2px;box-shadow:0 0 16px rgba(57,255,20,.18);overflow:hidden;animation:termCertIn .3s ease-out}
-@keyframes termCertIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.m-term-cert-bar{display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:#091216;border-bottom:1px solid var(--line);font-size:11px;font-family:var(--ui)}
-.m-term-cert-title{color:var(--text);font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:6px}
-.m-term-cert-btn{background:rgba(57,255,20,.1);border:1px solid var(--green);color:var(--green);font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;cursor:pointer;transition:.2s}
-.m-term-cert-btn:hover{background:var(--green);color:#000;box-shadow:0 0 10px var(--green)}
-.m-term-cert-wrap{position:relative;width:100%;max-height:280px;background:#000;overflow:hidden;cursor:zoom-in;display:flex;align-items:center;justify-content:center}
-.m-term-cert-img{width:100%;height:auto;max-height:280px;object-fit:contain;display:block;transition:transform .3s ease}
-.m-term-cert-wrap:hover .m-term-cert-img{transform:scale(1.02)}
-.m-term-cert-overlay{position:absolute;inset:0;background:rgba(5,8,10,.35);opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s;pointer-events:none}
-.m-term-cert-wrap:hover .m-term-cert-overlay{opacity:1}
-.m-term-cert-hint{background:rgba(0,0,0,.85);border:1px solid var(--cyan);color:var(--cyan);font-family:var(--ui);font-size:11px;letter-spacing:1.5px;padding:4px 10px;font-weight:700;box-shadow:0 0 12px rgba(0,229,255,.4)}
+.modal-body .m-actions{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);padding-top:14px;margin-top:12px;gap:12px;flex-wrap:wrap}
 
 /* FULLSCREEN CERTIFICATE LIGHTBOX */
 .cert-lightbox-overlay{position:fixed;inset:0;background:rgba(3,5,7,.94);backdrop-filter:blur(8px);z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s ease}
@@ -1105,17 +1070,6 @@ function openEvModal(key){
   $('#modalWinTitle').textContent = 'guest@bala-os: ~/intel/' + d.logFile;
   const chipsHtml = d.chips.map(c => `<span class="chip">${esc(c)}</span>`).join('');
   const highlightsHtml = d.highlights.map(h => `<li>${h}</li>`).join('');
-  const promptDir = d.termDir || 'intel';
-  const termCmd = d.termCmd || './verify_intel.sh';
-  const termOut = d.termOut || '<span class="p">[+]</span> Status: verified OK';
-  const bottomBar = d.certImg 
-    ? `<div class="m-term-bottom-bar" id="mTermBottomBar">
-        <span class="m-hint-text" id="mHintPill" title="Click to view certificate"><span class="pa">💡 HINT:</span> Type <span class="p">"view certificate"</span> to view certificate</span>
-        <button type="button" class="m-hint-btn" id="mHintBtn" title="Run view certificate">./view_certificate &nearr;</button>
-      </div>`
-    : `<div class="m-term-bottom-bar" id="mTermBottomBar">
-        <span class="m-hint-text" id="mHintPill"><span class="pa">💡 HINT:</span> Type <span class="p">"help"</span> or <span class="pc">"status"</span></span>
-      </div>`;
   const viewCertAction = d.certImg 
     ? `<button class="btn c" style="padding:6px 14px;font-size:11px" id="modalViewCertBtn">./view_certificate &nearr;</button>` 
     : '';
@@ -1137,24 +1091,6 @@ function openEvModal(key){
     <div class="m-sec">${esc(d.chipsTitle)}</div>
     <div class="m-chips">${chipsHtml}</div>
 
-    <div class="m-sec">// TERMINAL_LOG</div>
-    <div class="m-term-box" id="mTermBox">
-      <div class="m-term-bar">
-        <span class="m-term-dots"><i></i><i></i><i></i></span>
-        <span class="m-term-title">guest@bala-os: ~/${esc(promptDir)}</span>
-        <span class="m-term-tag">RUN // 0</span>
-      </div>
-      <div class="m-term-body" id="mTermBody">
-        <div class="m-term-line"><span class="p">guest@bala-os:~/${esc(promptDir)}$</span> <span class="pc">${esc(termCmd)}</span></div>
-        <div class="m-term-line">${termOut}</div>
-        <div class="m-term-in-row" id="mTermInRow">
-          <span class="p">guest@bala-os:~/${esc(promptDir)}$</span>
-          <input class="m-term-in" id="mTermIn" autocomplete="off" spellcheck="false" aria-label="mini terminal prompt">
-        </div>
-      </div>
-      ${bottomBar}
-    </div>
-
     <div class="m-actions">
       <span class="pd" style="font-size:11px">$ exit 0 // press ESC to close</span>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
@@ -1173,168 +1109,12 @@ function openEvModal(key){
   const dismissBtn = $('#modalDismissBtn');
   if(dismissBtn) dismissBtn.addEventListener('click', closeEvModal);
 
-  bindMiniTerm(d, promptDir, termCmd, termOut);
-}
-
-function bindMiniTerm(itemData, dir, cmd, outText){
-  const box = $('#mTermBox');
-  const input = $('#mTermIn');
-  const body = $('#mTermBody');
-  const inRow = $('#mTermInRow');
-  if(!box || !input || !body) return;
-
-  const focusInput = () => {
-    input.focus();
-  };
-
-  box.addEventListener('click', focusInput);
-  body.addEventListener('click', focusInput);
-  if(inRow) inRow.addEventListener('click', focusInput);
-
-  // Auto-focus immediately on modal open so the blinking cursor is right at the prompt
-  setTimeout(focusInput, 60);
-
-  function showCert() {
-    const curRow = input.closest('.m-term-in-row');
-    if(!itemData.certImg){
-      const errRow = document.createElement('div');
-      errRow.className = 'm-term-line';
-      errRow.innerHTML = `<span class="pa">[!]</span> No certificate image file on record for ${esc(itemData.title)}. (Verified on Carnegie Mellon CyLab platform &amp; resume)`;
-      body.insertBefore(errRow, curRow);
-      body.scrollTop = body.scrollHeight;
-      input.focus();
-      return;
-    }
-
-    body.classList.add('has-cert');
-
-    const statusRow1 = document.createElement('div');
-    statusRow1.className = 'm-term-line';
-    statusRow1.innerHTML = `<span class="p">[+]</span> Loading certificate: <span class="pa">${esc(itemData.certTitle || itemData.title)}</span>`;
-
-    const statusRow2 = document.createElement('div');
-    statusRow2.className = 'm-term-line';
-    statusRow2.innerHTML = `<span class="pc">[OK]</span> Certificate rendered below. Click image to inspect fullscreen.`;
-
-    const certBox = document.createElement('div');
-    certBox.className = 'm-term-cert-box';
-    certBox.innerHTML = `
-      <div class="m-term-cert-bar">
-        <span class="m-term-cert-title"><span class="p">●</span> ${esc(itemData.certTitle || itemData.title)}</span>
-        <button class="m-term-cert-btn" type="button" title="View fullscreen [Z]">🔍 EXPAND</button>
-      </div>
-      <div class="m-term-cert-wrap" title="Click to view fullscreen">
-        <img src="${esc(itemData.certImg)}" alt="${esc(itemData.certTitle || itemData.title)}" class="m-term-cert-img" loading="eager">
-        <div class="m-term-cert-overlay">
-          <span class="m-term-cert-hint">CLICK TO ENLARGE 🔍</span>
-        </div>
-      </div>
-    `;
-
-    const openLb = () => openCertLightbox(itemData.certImg, itemData.certTitle || itemData.title);
-    const expandBtn = certBox.querySelector('.m-term-cert-btn');
-    const wrap = certBox.querySelector('.m-term-cert-wrap');
-    if(expandBtn) expandBtn.addEventListener('click', openLb);
-    if(wrap) wrap.addEventListener('click', openLb);
-
-    body.insertBefore(statusRow1, curRow);
-    body.insertBefore(statusRow2, curRow);
-    body.insertBefore(certBox, curRow);
-    body.scrollTop = body.scrollHeight;
-    input.focus();
-  }
-
-  const triggerCertRun = () => {
-    const curRow = input.closest('.m-term-in-row');
-    const cmdRow = document.createElement('div');
-    cmdRow.className = 'm-term-line';
-    cmdRow.innerHTML = `<span class="p">guest@bala-os:~/${esc(dir)}$</span> view certificate`;
-    body.insertBefore(cmdRow, curRow);
-    showCert();
-  };
-
   const viewCertBtn = $('#modalViewCertBtn');
-  if(viewCertBtn) viewCertBtn.addEventListener('click', triggerCertRun);
-
-  const hintBtn = $('#mHintBtn');
-  if(hintBtn) hintBtn.addEventListener('click', triggerCertRun);
-
-  const hintPill = $('#mHintPill');
-  if(hintPill && itemData.certImg) hintPill.addEventListener('click', triggerCertRun);
-
-  input.addEventListener('keydown', e => {
-    if(e.key === 'Enter'){
-      const v = input.value.trim();
-      input.value = '';
-      if(!v) return;
-      const low = v.toLowerCase();
-      if(low === 'exit' || low === 'quit' || low === 'q'){
-        closeEvModal();
-        return;
-      }
-      if(low === 'clear' || low === 'cls'){
-        body.classList.remove('has-cert');
-        body.innerHTML = `
-          <div class="m-term-line"><span class="p">guest@bala-os:~/${esc(dir)}$</span> <span class="pc">${esc(cmd)}</span></div>
-          <div class="m-term-line">${outText}</div>
-          <div class="m-term-in-row" id="mTermInRow">
-            <span class="p">guest@bala-os:~/${esc(dir)}$</span>
-            <input class="m-term-in" id="mTermIn" autocomplete="off" spellcheck="false" aria-label="mini terminal prompt">
-          </div>
-        `;
-        bindMiniTerm(itemData, dir, cmd, outText);
-        return;
-      }
-
-      const isCertCmd = [
-        'view certificate', 'view cert', 'certificate', 'cert', 'show cert',
-        'show certificate', 'view-certificate', 'cat cert', 'cat certificate',
-        'open cert', 'open certificate', './view_certificate', 'view_certificate'
-      ].includes(low) || low.startsWith('view cert') || low.startsWith('cat cert') || low.startsWith('view certificate') || low === 'view';
-
-      const cmdRow = document.createElement('div');
-      cmdRow.className = 'm-term-line';
-      cmdRow.innerHTML = `<span class="p">guest@bala-os:~/${esc(dir)}$</span> ${esc(v)}`;
-      const currentInRow = input.closest('.m-term-in-row');
-      body.insertBefore(cmdRow, currentInRow);
-
-      if(isCertCmd){
-        showCert();
-        return;
-      }
-
-      let reply = '';
-      if(low === 'hint' || low === 'hints' || low === 'tip' || low === 'tips'){
-        reply = itemData.certImg
-          ? '<span class="pa">[HINT]</span> Type <span class="p">"view certificate"</span> to view certificate.'
-          : '<span class="pa">[HINT]</span> Type <span class="p">status</span> or <span class="pc">verify</span> to inspect intel.';
-      } else if(low === 'help'){
-        const certHelp = itemData.certImg ? '<span class="p">view certificate</span>, <span class="p">hint</span>, ' : '<span class="p">hint</span>, ';
-        reply = `<span class="pc">Available:</span> ${certHelp}ls, status, verify, whoami, linkedin, clear, exit`;
-      } else if(low === 'ls'){
-        const certFile = itemData.certImg ? `<span class="pa">certificate.${itemData.certImg.split('.').pop()}</span>  ` : '';
-        reply = `<span class="pc">${esc(cmd.split(' ')[0])}</span>  ${certFile}flag.txt  notes.md  exploit.py`;
-      } else if(low === 'status'){
-        reply = `<span class="pa">[STATUS]</span> ${esc(itemData.title)} &bull; ${esc(itemData.org)}`;
-      } else if(low === 'verify' || low === 'run' || low === cmd.toLowerCase() || low.includes('flag')){
-        reply = outText;
-      } else if(low === 'whoami'){
-        reply = 'Balamurugan S // CTF player &amp; Cyber Security student';
-      } else if(low === 'linkedin'){
-        window.open(itemData.linkedinUrl || 'https://www.linkedin.com/in/balamurugan-s-62a119339/', '_blank');
-        reply = '<span class="p">[OK]</span> Opening LinkedIn in new tab...';
-      } else {
-        reply = `<span class="pr">bash: ${esc(v)}: command not found</span> (try: 'hint' or 'view certificate')`;
-      }
-
-      const replyRow = document.createElement('div');
-      replyRow.className = 'm-term-line';
-      replyRow.innerHTML = reply;
-      body.insertBefore(replyRow, currentInRow);
-      body.scrollTop = body.scrollHeight;
-      input.focus();
-    }
-  });
+  if(viewCertBtn && d.certImg){
+    viewCertBtn.addEventListener('click', () => {
+      openCertLightbox(d.certImg, d.certTitle || d.title);
+    });
+  }
 }
 
 function closeEvModal(){
