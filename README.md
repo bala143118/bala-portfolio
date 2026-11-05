@@ -2,6 +2,19 @@
 
 > Interactive cyber hacker terminal portfolio and cinematic investigation evidence board showcasing offensive security achievements, CTF tournament victories, and software engineering projects.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-00E5FF?style=for-the-badge&logo=github)](https://bala143118.github.io/bala-portfolio/)
+[![Evidence Board](https://img.shields.io/badge/Evidence%20Board-Live%20Interactive-39FF14?style=for-the-badge&logo=matrix)](https://bala143118.github.io/bala-portfolio/investigation.html)
+
+---
+
+## 🌐 Live Deployment
+
+Access the portfolio online via GitHub Pages:
+
+* 🚀 **Main Terminal Interface:** [https://bala143118.github.io/bala-portfolio/](https://bala143118.github.io/bala-portfolio/)
+* 🔍 **Cinematic Investigation Board:** [https://bala143118.github.io/bala-portfolio/investigation.html](https://bala143118.github.io/bala-portfolio/investigation.html)
+* 📋 **Clean Portfolio Dossier:** [https://bala143118.github.io/bala-portfolio/portfolio.html](https://bala143118.github.io/bala-portfolio/portfolio.html)
+
 ---
 
 ## ⚡ Overview
@@ -54,6 +67,7 @@ Then navigate to:
 
 ## 📬 Contact & Connect
 
+* **Live Portfolio:** [https://bala143118.github.io/bala-portfolio/](https://bala143118.github.io/bala-portfolio/)
 * **Developer:** Balamurugan S
 * **GitHub:** [@bala143118](https://github.com/bala143118)
 * **LinkedIn:** [Balamurugan S](https://www.linkedin.com/in/balamurugan-s-62a119339/)
