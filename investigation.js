@@ -182,7 +182,63 @@
       chips: ['TEAM KERNEL', 'CSSCTF 2026', 'Cybersecurity Society Sydney', 'University of Sydney', '40-Hour Sprint', 'CTFtime Event', 'Offensive Security'],
       proofUrl: 'resume.pdf',
       proofLabel: './inspect_evidence &nearr;',
-      connectedTo: [4]
+      connectedTo: [4, 6]
+    },
+    {
+      id: 'EVIDENCE-007',
+      num: '007',
+      category: 'ctf',
+      pinType: 'cyan',
+      isFeatured: false,
+      stamp: 'OUTSTANDING',
+      stampClass: 'classified',
+      title: 'CREST CTF 2.0 — Cyber Security Challenge',
+      shortOrg: 'PCU School of Computer Application, Pune',
+      result: 'OUTSTANDING PERFORMANCE // TEAM BITBR34KERS',
+      resultClass: '',
+      image: 'assets/evidence/cert_crest_ctf_2026.jpg',
+      isImage: true,
+      date: '23/10/2026',
+      summary: 'Demonstrated outstanding performance in CREST CTF 2.0 — Cyber Security Challenge organized by PCET\'s Pimpri Chinchwad University (PCU) School of Computer Application as part of team BitBr34kers on 23rd October 2026.',
+      highlightsTitle: '// CHALLENGE BRIEF & VERIFICATION',
+      highlights: [
+        '<b>Organized by:</b> CREST - PCU - School of Computer Application (Pimpri Chinchwad University).',
+        '<b>Team Name:</b> BitBr34kers (@balamurugan).',
+        '<b>Credential ID:</b> Verify: CTF7-2026-2838.',
+        '<b>Competition Scope:</b> Practical problem-solving across network security, web penetration testing, and cryptographic cipher decoding.'
+      ],
+      chips: ['BitBr34kers', 'CREST CTF 2.0', 'PCU Pune', 'Certificate CTF7-2026-2838', 'Cyber Security Challenge', 'Ethical Hacking'],
+      proofUrl: 'resume.pdf',
+      proofLabel: './inspect_evidence &nearr;',
+      connectedTo: [5, 7]
+    },
+    {
+      id: 'EVIDENCE-008',
+      num: '008',
+      category: 'ctf',
+      pinType: 'cyan',
+      isFeatured: false,
+      stamp: 'Q4 OPERATIONS',
+      stampClass: 'classified',
+      title: 'SecLeaf Q4 Operations CTF',
+      shortOrg: 'SecLeaf (Supported by TryHackMe & Hetzner)',
+      result: 'CERTIFICATE OF PARTICIPATION // SECLEAF OPERATIONS',
+      resultClass: '',
+      image: 'assets/evidence/cert_secleaf_q4_ctf.png',
+      isImage: true,
+      date: '31/10/2026',
+      summary: 'Actively participated in the SecLeaf Q4 Operations CTF on 31st October 2026, solving offensive security and exploitation challenges supported by major cybersecurity platforms including TryHackMe, Campfire Security, Altered Security, and Hetzner.',
+      highlightsTitle: '// OPERATIONS INTEL & ECOSYSTEM',
+      highlights: [
+        '<b>Event Organizers:</b> Parvesh Dahale (Co-Founder) & Aditya Pidurkar (Principal Co-Founder) — SecLeaf.',
+        '<b>Platform Partners:</b> TryHackMe, Campfire Security, Altered Security, Hetzner, Render, CIFIT, and .xyz.',
+        '<b>Operations Scope:</b> Real-time cyber threat operations, web exploitation, digital forensics, and infrastructure security.',
+        '<b>Individual Recognition:</b> Awarded Certificate of Participation to Balamurugan S for offensive security capabilities.'
+      ],
+      chips: ['SecLeaf CTF', 'Q4 Operations', 'TryHackMe Partner', 'Altered Security', 'Hetzner', 'Offensive Security', '31 Oct 2026'],
+      proofUrl: 'resume.pdf',
+      proofLabel: './inspect_evidence &nearr;',
+      connectedTo: [6]
     },
   /*
    * ===========================================================================
@@ -589,7 +645,8 @@
     const connections = [
       [0, 1], [1, 2],
       [0, 3], [3, 4],
-      [4, 5]
+      [4, 5], [5, 6],
+      [6, 7]
     ];
 
     connections.forEach(([i1, i2]) => {

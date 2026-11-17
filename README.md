@@ -41,6 +41,8 @@ This repository hosts the personal cyber security portfolio and CTF dossier of *
 * 🎖️ **Top 1.5% Nationwide (29th of 2,000+ Teams):** Lun4R CTF 2026 (ROOT RIET)
 * 🌐 **57th Globally:** NULL ORIGIN CTF 2026 (CyberXOX / OffSec Partner)
 * 🌐 **International CTF Participant:** CSSCTF 2026: Return of Nexus (Cybersecurity Society Sydney / USYD)
+* ⚡ **Outstanding Performance:** CREST CTF 2.0 (Team BitBr34kers · PCU Pune)
+* 🛡️ **Operations Participant:** SecLeaf Q4 Operations CTF (SecLeaf / TryHackMe Partner)
 
 ---
 

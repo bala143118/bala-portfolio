@@ -339,7 +339,7 @@ body.site-shake-granted::after{
     <div class="stats">
       <div class="stat"><b data-count="1">0</b><span>CTF 1st Prize</span></div>
       <div class="stat"><b data-count="2">0</b><span>Hackathon 2nd Prizes</span></div>
-      <div class="stat"><b data-count="7">0</b><span>Competitions &amp; Challenges</span></div>
+      <div class="stat"><b data-count="9">0</b><span>Competitions &amp; Challenges</span></div>
     </div>
   </div>
   <div class="win">
@@ -427,6 +427,20 @@ body.site-shake-granted::after{
       <h3><span class="badge">GLOBAL CTF</span>CSSCTF 2026: Return of Nexus</h3>
       <div class="org">Cybersecurity Society Sydney (USYD)</div>
       <p>TEAM KERNEL participated in this 40-hour international CTF under the Quantum Nexus theme.</p>
+      <div class="ev-hint">[ CLICK TO INSPECT INTEL &rarr; ]</div>
+    </div>
+    <div class="ev cy reveal" data-item="crest">
+      <div class="when">2026</div>
+      <h3><span class="badge">OUTSTANDING</span>CREST CTF 2.0</h3>
+      <div class="org">PCU School of Computer Application, Pune</div>
+      <p>Outstanding performance in this cybersecurity challenge as part of team BitBr34kers.</p>
+      <div class="ev-hint">[ CLICK TO INSPECT INTEL &rarr; ]</div>
+    </div>
+    <div class="ev cy reveal" data-item="secleaf">
+      <div class="when">2026</div>
+      <h3><span class="badge">Q4 CTF</span>SecLeaf Q4 Operations CTF</h3>
+      <div class="org">SecLeaf · Supported by TryHackMe &amp; Hetzner</div>
+      <p>Actively participated in live exploitation operations and security challenges.</p>
       <div class="ev-hint">[ CLICK TO INSPECT INTEL &rarr; ]</div>
     </div>
     <div class="ev cy reveal" data-item="picoctf">
@@ -732,6 +746,8 @@ const cmds={
 <span class="pc">29th</span> Lun4R CTF 2026 (29th of 2,000+ · Team Kernel)
 <span class="pc">57th</span> NULL ORIGIN CTF 2026 (Global CTF · CyberX)
 <span class="pc">CTF</span>  CSSCTF 2026: Return of Nexus (Cybersec Society Sydney · Team Kernel)
+<span class="pc">CTF</span>  CREST CTF 2.0 — Outstanding Performance (Team BitBr34kers · PCU)
+<span class="pc">CTF</span>  SecLeaf Q4 Operations CTF (SecLeaf · TryHackMe & Hetzner)
 <span class="p">100+</span> picoCTF (100+ Solved · CyLab CMU)`,
  education:()=>'B.E. CSE (Cyber Security), 2024–2028 — Sri Shakthi Institute of Engineering and Technology (CGPA 6.52)\nHSC 75.2% · SSLC 65.6%',
  email:()=>'<a href="mailto:balamar2007@gmail.com">balamar2007@gmail.com</a>',
@@ -1033,6 +1049,52 @@ const itemDetails = {
     termDir: 'cssctf',
     termCmd: './quantum_nexus.sh --verify-creds',
     termOut: '<span class="p">[+]</span> Quantum Nexus connection verified // <span class="pa">Certificate of Participation [CSS Sydney]</span>'
+  },
+  crest: {
+    logFile: 'crest_ctf_2026.log',
+    badge: '<span class="badge">OUTSTANDING</span>',
+    time: '2026 // CYBER SECURITY CHALLENGE',
+    title: 'CREST CTF 2.0 — Cyber Security Challenge',
+    org: 'CREST - PCU - School of Computer Application, Pune',
+    certImg: 'assets/evidence/cert_crest_ctf_2026.jpg',
+    certTitle: 'CREST CTF 2.0 — Certificate of Participation & Outstanding Performance',
+    linkedinUrl: 'resume.pdf',
+    summary: 'Demonstrated outstanding performance in CREST CTF 2.0 — Cyber Security Challenge organized by PCET\'s Pimpri Chinchwad University (PCU) School of Computer Application as part of team BitBr34kers on 23rd October 2026.',
+    highlightsTitle: '// BRIEF_INTEL',
+    highlights: [
+      '<b>Organized by:</b> CREST - PCU - School of Computer Application (Pimpri Chinchwad University).',
+      '<b>Team Name:</b> BitBr34kers (@balamurugan).',
+      '<b>Credential ID:</b> Verify: CTF7-2026-2838.',
+      '<b>Challenge Tracks:</b> Hands-on exploitation, network security audits, web testing, and cipher breaking.'
+    ],
+    chipsTitle: '// TEAM_&_TAGS',
+    chips: ['BitBr34kers', 'CREST CTF 2.0', 'PCU Pune', 'Certificate CTF7-2026-2838', 'Cyber Security Challenge'],
+    termDir: 'crest-ctf',
+    termCmd: './verify_crest.py --id "CTF7-2026-2838"',
+    termOut: '<span class="p">[+]</span> Credential verified: <span class="pa">BitBr34kers // Outstanding Performance</span> [PCU]'
+  },
+  secleaf: {
+    logFile: 'secleaf_q4_ctf_2026.log',
+    badge: '<span class="badge">Q4 OPERATIONS</span>',
+    time: '2026 // OFFENSIVE SEC OPERATIONS',
+    title: 'SecLeaf Q4 Operations CTF',
+    org: 'SecLeaf · Supported by TryHackMe, Hetzner & Altered Security',
+    certImg: 'assets/evidence/cert_secleaf_q4_ctf.png',
+    certTitle: 'SecLeaf Q4 Operations CTF — Certificate of Participation',
+    linkedinUrl: 'resume.pdf',
+    summary: 'Actively participated in the SecLeaf Q4 Operations CTF on 31st October 2026, solving offensive security and exploitation challenges supported by major cybersecurity platforms including TryHackMe, Campfire Security, Altered Security, and Hetzner.',
+    highlightsTitle: '// BRIEF_INTEL',
+    highlights: [
+      '<b>Organizers:</b> Parvesh Dahale (Co-Founder) & Aditya Pidurkar (Principal Co-Founder) — SecLeaf.',
+      '<b>Ecosystem Partners:</b> TryHackMe, Campfire Security, Altered Security, Hetzner, Render, and CIFIT.',
+      '<b>Domain Coverage:</b> Real-time cyber attack surface analysis, web exploitation, and forensics.',
+      '<b>Recognition:</b> Awarded Certificate of Participation to Balamurugan S.'
+    ],
+    chipsTitle: '// DOMAINS_&_TAGS',
+    chips: ['SecLeaf CTF', 'Q4 Operations', 'TryHackMe Partner', 'Altered Security', 'Hetzner', 'Offensive Security'],
+    termDir: 'secleaf',
+    termCmd: './ops_status.sh --q4',
+    termOut: '<span class="p">[+]</span> Operations active // <span class="pa">Participation verified [SecLeaf & TryHackMe]</span>'
   },
   picoctf: {
     logFile: 'picoctf_100_challenges.log',
