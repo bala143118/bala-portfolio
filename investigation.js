@@ -113,7 +113,7 @@
       resultClass: '',
       image: 'assets/evidence/cert_lunar_ctf.jpg',
       isImage: true,
-      date: '20/09/2026',
+      date: '28/09/2026',
       summary: 'TEAM KERNEL competed in Lun4R CTF 2026, a national-level cybersecurity Capture The Flag competition organized by ROOT RIET, securing the 29th position among 2,000+ participants nationwide.',
       highlightsTitle: '// NATIONAL CTF PERFORMANCE',
       highlights: [
@@ -153,7 +153,36 @@
       chips: ['57th Place Globally', 'International CTF', 'OffSec Partner', 'CyberXOX', 'Certificate NO-2026-CB81CE'],
       proofUrl: 'https://lnkd.in/p/g9CzvbF5',
       proofLabel: './verify_on_linkedin &nearr;',
-      connectedTo: [3]
+      connectedTo: [3, 5]
+    },
+    {
+      id: 'EVIDENCE-006',
+      num: '006',
+      category: 'ctf',
+      pinType: 'cyan',
+      isFeatured: false,
+      stamp: 'PARTICIPATION',
+      stampClass: 'classified',
+      title: 'CSSCTF 2026: Return of Nexus',
+      shortOrg: 'Cybersecurity Society Sydney (USYD)',
+      result: 'CERTIFICATE OF PARTICIPATION // 40-HR INTERNATIONAL CTF',
+      resultClass: '',
+      image: 'assets/evidence/cert_cssctf_2026.jpg',
+      isImage: true,
+      date: '01/10/2026',
+      summary: 'Competed with TEAM KERNEL in CSSCTF 2026: Return of Nexus, a 40-hour continuous flagship international Capture The Flag (CTF) tournament organized by the Cybersecurity Society Sydney (University of Sydney). Awarded official Certificate of Participation for solving complex multi-domain security tracks.',
+      highlightsTitle: '// GLOBAL CTF INTEL & VERIFICATION',
+      highlights: [
+        '<b>Host Organization:</b> Cybersecurity Society Sydney (CSS) — University of Sydney, Australia.',
+        '<b>Tournament Format:</b> 40-Hour non-stop international Jeopardy-style CTF sprint.',
+        '<b>Team Representation:</b> Balamurugan S (TEAM KERNEL).',
+        '<b>Challenge Categories:</b> Web Exploitation, Cryptography, Reverse Engineering, Binary Exploitation (PWN), Forensics, and OSINT.',
+        '<b>Authorized Signatures:</b> Has Salvesen (President) & Jose Senjaya (CTF Director).'
+      ],
+      chips: ['TEAM KERNEL', 'CSSCTF 2026', 'Cybersecurity Society Sydney', 'University of Sydney', '40-Hour Sprint', 'CTFtime Event', 'Offensive Security'],
+      proofUrl: 'resume.pdf',
+      proofLabel: './inspect_evidence &nearr;',
+      connectedTo: [4]
     },
   /*
    * ===========================================================================
@@ -559,7 +588,8 @@
 
     const connections = [
       [0, 1], [1, 2],
-      [0, 3], [3, 4]
+      [0, 3], [3, 4],
+      [4, 5]
     ];
 
     connections.forEach(([i1, i2]) => {

@@ -40,6 +40,7 @@ This repository hosts the personal cyber security portfolio and CTF dossier of *
 * 🥈 **2nd Prize (1st Runner-Up):** 24-Hour SUSTAINVERSE 2K26 Hackathon (DMI College of Engineering)
 * 🎖️ **Top 1.5% Nationwide (29th of 2,000+ Teams):** Lun4R CTF 2026 (ROOT RIET)
 * 🌐 **57th Globally:** NULL ORIGIN CTF 2026 (CyberXOX / OffSec Partner)
+* 🌐 **International CTF Participant:** CSSCTF 2026: Return of Nexus (Cybersecurity Society Sydney / USYD)
 
 ---
 

@@ -339,7 +339,7 @@ body.site-shake-granted::after{
     <div class="stats">
       <div class="stat"><b data-count="1">0</b><span>CTF 1st Prize</span></div>
       <div class="stat"><b data-count="2">0</b><span>Hackathon 2nd Prizes</span></div>
-      <div class="stat"><b data-count="6">0</b><span>Competitions &amp; Challenges</span></div>
+      <div class="stat"><b data-count="7">0</b><span>Competitions &amp; Challenges</span></div>
     </div>
   </div>
   <div class="win">
@@ -420,6 +420,13 @@ body.site-shake-granted::after{
       <h3>NULL ORIGIN CTF 2026 — 57th Place</h3>
       <div class="org">Presented by CyberX</div>
       <p>Secured 57th position globally in this 24-hour international CTF.</p>
+      <div class="ev-hint">[ CLICK TO INSPECT INTEL &rarr; ]</div>
+    </div>
+    <div class="ev cy reveal" data-item="cssctf">
+      <div class="when">2026</div>
+      <h3><span class="badge">GLOBAL CTF</span>CSSCTF 2026: Return of Nexus</h3>
+      <div class="org">Cybersecurity Society Sydney (USYD)</div>
+      <p>TEAM KERNEL participated in this 40-hour international CTF under the Quantum Nexus theme.</p>
       <div class="ev-hint">[ CLICK TO INSPECT INTEL &rarr; ]</div>
     </div>
     <div class="ev cy reveal" data-item="picoctf">
@@ -724,6 +731,7 @@ const cmds={
 <span class="pa">2nd</span>  SUSTAINVERSE 2K26 — 24-hr hackathon (Team Kernel)
 <span class="pc">29th</span> Lun4R CTF 2026 (29th of 2,000+ · Team Kernel)
 <span class="pc">57th</span> NULL ORIGIN CTF 2026 (Global CTF · CyberX)
+<span class="pc">CTF</span>  CSSCTF 2026: Return of Nexus (Cybersec Society Sydney · Team Kernel)
 <span class="p">100+</span> picoCTF (100+ Solved · CyLab CMU)`,
  education:()=>'B.E. CSE (Cyber Security), 2024–2028 — Sri Shakthi Institute of Engineering and Technology (CGPA 6.52)\nHSC 75.2% · SSLC 65.6%',
  email:()=>'<a href="mailto:balamar2007@gmail.com">balamar2007@gmail.com</a>',
@@ -1001,6 +1009,30 @@ const itemDetails = {
     termDir: 'nullorigin',
     termCmd: './cyberx_intl_ctf.sh --standing',
     termOut: '<span class="p">[+]</span> Global ranking: <span class="pa">57th Place Globally</span> // <span class="pc">CyberX</span>'
+  },
+  cssctf: {
+    logFile: 'cssctf_2026_nexus.log',
+    badge: '<span class="badge">GLOBAL CTF</span>',
+    time: '2026 // 40-HR INTERNATIONAL CTF',
+    title: 'CSSCTF 2026: Return of Nexus',
+    org: 'Cybersecurity Society Sydney (University of Sydney, Australia)',
+    certImg: 'assets/evidence/cert_cssctf_2026.jpg',
+    certTitle: 'CSSCTF 2026: Return of Nexus — Certificate of Participation',
+    linkedinUrl: 'https://ctftime.org/event/2890',
+    summary: 'Competed with TEAM KERNEL in CSSCTF 2026: Return of Nexus, a 40-hour continuous flagship international Capture The Flag (CTF) tournament organized by the Cybersecurity Society Sydney (University of Sydney). Awarded official Certificate of Participation for solving complex multi-domain security tracks.',
+    highlightsTitle: '// BRIEF_INTEL',
+    highlights: [
+      '<b>Host Organization:</b> Cybersecurity Society Sydney (CSS) — University of Sydney, Australia.',
+      '<b>Tournament Format:</b> 40-Hour non-stop international Jeopardy-style CTF sprint.',
+      '<b>Team Representation:</b> Balamurugan S (TEAM KERNEL).',
+      '<b>Challenge Categories:</b> Web Exploitation, Cryptography, Reverse Engineering, Binary Exploitation (PWN), Forensics, and OSINT.',
+      '<b>Authorized Signatures:</b> Has Salvesen (President) & Jose Senjaya (CTF Director).'
+    ],
+    chipsTitle: '// DOMAINS_&_TAGS',
+    chips: ['TEAM KERNEL', 'CSSCTF 2026', 'Cybersecurity Society Sydney', 'University of Sydney', '40-Hour CTF', 'Quantum Nexus', 'Web & Crypto'],
+    termDir: 'cssctf',
+    termCmd: './quantum_nexus.sh --verify-creds',
+    termOut: '<span class="p">[+]</span> Quantum Nexus connection verified // <span class="pa">Certificate of Participation [CSS Sydney]</span>'
   },
   picoctf: {
     logFile: 'picoctf_100_challenges.log',
