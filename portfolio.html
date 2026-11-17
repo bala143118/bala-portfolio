@@ -211,6 +211,19 @@ section{max-width:1150px;margin:0 auto;padding:96px 22px 40px}
 }
 .cterm-granted{animation:termGlitchGranted .65s cubic-bezier(.36,.07,.19,.97) both}
 .cterm-granted .win-bar{background:#04210e!important;color:var(--green)!important;border-bottom-color:var(--green)!important}
+@keyframes heartBeatPulse{
+  0%,100%{transform:scale(1);filter:drop-shadow(0 0 6px rgba(255,59,136,.6))}
+  15%{transform:scale(1.04);filter:drop-shadow(0 0 16px rgba(255,59,136,.9))}
+  30%{transform:scale(1);filter:drop-shadow(0 0 6px rgba(255,59,136,.6))}
+  45%{transform:scale(1.06);filter:drop-shadow(0 0 22px rgba(255,20,147,1))}
+}
+.cyber-heart-pulse{display:inline-block;color:#ff3b88;font-weight:700;animation:heartBeatPulse 1.4s ease-in-out infinite;transform-origin:center}
+.glow-dhivya-white{color:#fff;text-shadow:0 0 10px #ff3b88,0 0 18px #fff}
+.glow-dhivya-cyan{color:#00e5ff;text-shadow:0 0 10px #00e5ff}
+.glow-dhivya-green{color:#39ff14;text-shadow:0 0 10px #39ff14}
+.glow-dhivya-amber{color:#ffb000;text-shadow:0 0 10px #ffb000}
+.glow-dhivya-purple{color:#c084fc;text-shadow:0 0 10px #c084fc}
+.glow-dhivya-pink{color:#ff5e9a;text-shadow:0 0 14px #ff1493}
 footer{position:relative;z-index:1;text-align:center;padding:30px 20px 50px;color:var(--dim);font-size:12px;border-top:1px solid var(--line);margin-top:60px}
 footer b{color:var(--green)}
 
@@ -822,20 +835,42 @@ cmds.dhivya=()=>{
 ║  STATUS: HEARTBEAT SYNCED // CLEARANCE 100%
 ╚══════════════════════════════════════════════════╝</span>
 
-<span style="color:#ff3b88;font-weight:700">         ######      ######         
-       ##########  ##########       
-      ######  <span style="color:#fff;text-shadow:0 0 10px #fff">DHIVYA</span>  #######       
-      ########################      
-       ######################       
-         ##################         
-           ##############           
-             ##########             
-               ######               
-                 ##                 </span>
+<div class="cyber-heart-pulse">
+           .::*******::.         .::*******::.           
+       .*****************:.   .:*****************.       
+      :*******   <span class="glow-dhivya-white">DHIVYA</span>   *****:*****   <span class="glow-dhivya-cyan">திவ்யா</span>    *******:      
+     :*********************************************:     
+     :*****   <span class="glow-dhivya-green">ディビヤ</span> (JA)   •   <span class="glow-dhivya-amber">दिव्या</span> (HI)    *****:     
+      :****     <span class="glow-dhivya-purple">디비야</span> (KO)   •   <span class="glow-dhivya-cyan">ديفيا</span> (AR)     ****:      
+       :***      <span class="glow-dhivya-pink">Дивья</span> (RU)   •   <span class="glow-dhivya-white">DIVYA</span> (EN)     ***:       
+         :***          <span class="glow-dhivya-pink">♥ DHIVYA ♥</span>          ***:         
+           :***           <span class="glow-dhivya-cyan">திவ்யா</span>           ***:           
+             :***         <span class="glow-dhivya-white">DIVYA</span>         ***:             
+               :***        <span class="glow-dhivya-pink">♥♥♥</span>        ***:               
+                 :****             ****:                 
+                   :*****       *****:                   
+                     :******* *******:                     
+                       :***********:                       
+                         :*******:                         
+                           :***:                           
+                             *                             </div>
+
+<span class="pc">   🌐 MULTI-LANGUAGE HEARTBEAT SIGNATURES:</span>
+<span class="pd">   ────────────────────────────────────────</span>
+<span class="pa">   [TA] TAMIL     :</span> <span class="glow-dhivya-cyan">திவ்யா</span>
+<span class="pa">   [JA] JAPANESE  :</span> <span class="glow-dhivya-green">ディビヤ (Divya)</span>
+<span class="pa">   [HI] SANSKRIT  :</span> <span class="glow-dhivya-amber">दिव्या (Divine Light)</span>
+<span class="pa">   [KO] KOREAN    :</span> <span class="glow-dhivya-purple">디비야</span>
+<span class="pa">   [AR] ARABIC    :</span> <span class="glow-dhivya-cyan">ديفيا</span>
+<span class="pa">   [RU] RUSSIAN   :</span> <span class="glow-dhivya-pink">Дивья</span>
+<span class="pa">   [EN] ENGLISH   :</span> <span class="glow-dhivya-white">DHIVYA (Pure Brilliance)</span>
 
 <span class="p">🔓 OVERRIDE SUCCESSFUL:</span> <span class="pc">Root clearance unlocked.</span>
-<span class="pd">Special encryption key verified: Heartbeat signature matched.</span>`;
+<span class="pd">Special encryption key verified: Heartbeat signature matched across all languages.</span>`;
 };
+cmds.divya=cmds.dhivya;
+cmds.dhivi=cmds.dhivya;
+cmds.divi=cmds.dhivya;
 
 let breachCount=0;
 let notifyTimeout=null;
