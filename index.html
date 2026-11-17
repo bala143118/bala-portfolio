@@ -211,19 +211,33 @@ section{max-width:1150px;margin:0 auto;padding:96px 22px 40px}
 }
 .cterm-granted{animation:termGlitchGranted .65s cubic-bezier(.36,.07,.19,.97) both}
 .cterm-granted .win-bar{background:#04210e!important;color:var(--green)!important;border-bottom-color:var(--green)!important}
-@keyframes heartBeatPulse{
-  0%,100%{transform:scale(1);filter:drop-shadow(0 0 6px rgba(255,59,136,.6))}
-  15%{transform:scale(1.04);filter:drop-shadow(0 0 16px rgba(255,59,136,.9))}
-  30%{transform:scale(1);filter:drop-shadow(0 0 6px rgba(255,59,136,.6))}
-  45%{transform:scale(1.06);filter:drop-shadow(0 0 22px rgba(255,20,147,1))}
+@keyframes cyberHeartBeat{
+  0%,100%{transform:scale(1);filter:drop-shadow(0 0 10px rgba(255,45,85,.6))}
+  14%{transform:scale(1.08);filter:drop-shadow(0 0 24px rgba(255,45,85,.95)) drop-shadow(0 0 45px rgba(255,45,85,.4))}
+  28%{transform:scale(1);filter:drop-shadow(0 0 10px rgba(255,45,85,.6))}
+  42%{transform:scale(1.12);filter:drop-shadow(0 0 28px rgba(255,45,85,1)) drop-shadow(0 0 55px rgba(255,117,151,.5))}
 }
-.cyber-heart-pulse{display:inline-block;color:#ff3b88;font-weight:700;animation:heartBeatPulse 1.4s ease-in-out infinite;transform-origin:center}
-.glow-dhivya-white{color:#fff;text-shadow:0 0 10px #ff3b88,0 0 18px #fff}
-.glow-dhivya-cyan{color:#00e5ff;text-shadow:0 0 10px #00e5ff}
-.glow-dhivya-green{color:#39ff14;text-shadow:0 0 10px #39ff14}
-.glow-dhivya-amber{color:#ffb000;text-shadow:0 0 10px #ffb000}
-.glow-dhivya-purple{color:#c084fc;text-shadow:0 0 10px #c084fc}
-.glow-dhivya-pink{color:#ff5e9a;text-shadow:0 0 14px #ff1493}
+.heart-reactor{white-space:normal;display:block;margin:12px auto;max-width:440px;background:radial-gradient(circle at center,rgba(30,10,20,.85) 0%,rgba(8,14,18,.96) 75%);border:1px solid rgba(255,45,85,.35);box-shadow:0 0 35px rgba(255,45,85,.2),inset 0 0 25px rgba(255,45,85,.08);border-radius:8px;padding:16px 14px;text-align:center;position:relative}
+.heart-reactor::before{content:"";position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,#ff2d55,transparent)}
+.hr-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1.5px;color:#39ff14;background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.3);padding:3px 10px;border-radius:3px;margin-bottom:12px}
+.hr-dot{width:6px;height:6px;background:#39ff14;border-radius:50%;box-shadow:0 0 8px #39ff14;display:inline-block}
+.hr-stage{position:relative;width:260px;height:230px;margin:4px auto 12px;display:flex;justify-content:center;align-items:center}
+.hr-svg{position:absolute;inset:0;width:100%;height:100%;animation:cyberHeartBeat 1.4s ease-in-out infinite;transform-origin:center}
+.hr-content{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:3px;margin-top:14px;pointer-events:none}
+.hr-title{font-size:26px;font-weight:800;letter-spacing:4px;color:#fff;text-shadow:0 0 10px #ff2d55,0 0 25px #ff2d55,0 0 40px #fff;line-height:1.1}
+.hr-sub1{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;line-height:1.2}
+.hr-sub2{display:flex;gap:8px;align-items:center;font-size:12px;font-weight:600;line-height:1.2}
+.c-ta{color:#00e5ff;text-shadow:0 0 8px rgba(0,229,255,.9)}
+.c-ja{color:#39ff14;text-shadow:0 0 8px rgba(57,255,20,.9)}
+.c-hi{color:#ffb000;text-shadow:0 0 8px rgba(255,176,0,.9)}
+.c-ko{color:#c084fc;text-shadow:0 0 8px rgba(192,132,252,.9)}
+.c-sep{color:rgba(255,255,255,.35);font-size:9px}
+.hr-love{font-size:10px;color:#ff7597;letter-spacing:3px;font-weight:700;text-shadow:0 0 8px #ff2d55;margin-top:2px}
+.hr-pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding-top:12px;border-top:1px dashed rgba(255,45,85,.25)}
+.hr-pill{font-size:11px;padding:3px 8px;background:rgba(255,45,85,.08);border:1px solid rgba(255,45,85,.3);border-radius:3px;display:inline-flex;align-items:center;gap:5px}
+.hr-pill b{color:#ff2d55;font-size:10px}
+.hr-pill span{color:#fff}
+.hr-footer{margin-top:10px;font-size:11px;color:#5a7582;letter-spacing:.8px}
 footer{position:relative;z-index:1;text-align:center;padding:30px 20px 50px;color:var(--dim);font-size:12px;border-top:1px solid var(--line);margin-top:60px}
 footer b{color:var(--green)}
 
@@ -835,35 +849,79 @@ cmds.dhivya=()=>{
 ║  STATUS: HEARTBEAT SYNCED // CLEARANCE 100%
 ╚══════════════════════════════════════════════════╝</span>
 
-<div class="cyber-heart-pulse">
-           .::*******::.         .::*******::.           
-       .*****************:.   .:*****************.       
-      :*******   <span class="glow-dhivya-white">DHIVYA</span>   *****:*****   <span class="glow-dhivya-cyan">திவ்யா</span>    *******:      
-     :*********************************************:     
-     :*****   <span class="glow-dhivya-green">ディビヤ</span> (JA)   •   <span class="glow-dhivya-amber">दिव्या</span> (HI)    *****:     
-      :****     <span class="glow-dhivya-purple">디비야</span> (KO)   •   <span class="glow-dhivya-cyan">ديفيا</span> (AR)     ****:      
-       :***      <span class="glow-dhivya-pink">Дивья</span> (RU)   •   <span class="glow-dhivya-white">DIVYA</span> (EN)     ***:       
-         :***          <span class="glow-dhivya-pink">♥ DHIVYA ♥</span>          ***:         
-           :***           <span class="glow-dhivya-cyan">திவ்யா</span>           ***:           
-             :***         <span class="glow-dhivya-white">DIVYA</span>         ***:             
-               :***        <span class="glow-dhivya-pink">♥♥♥</span>        ***:               
-                 :****             ****:                 
-                   :*****       *****:                   
-                     :******* *******:                     
-                       :***********:                       
-                         :*******:                         
-                           :***:                           
-                             *                             </div>
+<div class="heart-reactor">
+  <div class="hr-badge">
+    <span class="hr-dot"></span>
+    <span>BIOMETRIC OVERRIDE // CODEWORD: 'DHIVYA'</span>
+  </div>
 
-<span class="pc">   🌐 MULTI-LANGUAGE HEARTBEAT SIGNATURES:</span>
-<span class="pd">   ────────────────────────────────────────</span>
-<span class="pa">   [TA] TAMIL     :</span> <span class="glow-dhivya-cyan">திவ்யா</span>
-<span class="pa">   [JA] JAPANESE  :</span> <span class="glow-dhivya-green">ディビヤ (Divya)</span>
-<span class="pa">   [HI] SANSKRIT  :</span> <span class="glow-dhivya-amber">दिव्या (Divine Light)</span>
-<span class="pa">   [KO] KOREAN    :</span> <span class="glow-dhivya-purple">디비야</span>
-<span class="pa">   [AR] ARABIC    :</span> <span class="glow-dhivya-cyan">ديفيا</span>
-<span class="pa">   [RU] RUSSIAN   :</span> <span class="glow-dhivya-pink">Дивья</span>
-<span class="pa">   [EN] ENGLISH   :</span> <span class="glow-dhivya-white">DHIVYA (Pure Brilliance)</span>
+  <div class="hr-stage">
+    <svg class="hr-svg" viewBox="0 0 100 90" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <radialGradient id="hGlowGrad" cx="50%" cy="40%" r="55%">
+          <stop offset="0%" stop-color="#ff1493" stop-opacity="0.4"/>
+          <stop offset="60%" stop-color="#ff2d55" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#7928ca" stop-opacity="0.35"/>
+        </radialGradient>
+        <linearGradient id="hStrokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff7597"/>
+          <stop offset="50%" stop-color="#ff2d55"/>
+          <stop offset="100%" stop-color="#c084fc"/>
+        </linearGradient>
+        <filter id="hGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- Main Neon Cyber Heart -->
+      <path d="M50 82 C20 62, 5 45, 5 28 C5 12, 17 5, 30 5 C39 5, 46 11, 50 18 C54 11, 61 5, 70 5 C83 5, 95 12, 95 28 C95 45, 80 62, 50 82 Z"
+            fill="url(#hGlowGrad)"
+            stroke="url(#hStrokeGrad)"
+            stroke-width="2.2"
+            filter="url(#hGlowFilter)"/>
+
+      <!-- Inner Holographic Ring -->
+      <path d="M50 74 C26 56, 13 42, 13 28 C13 16, 22 11, 31 11 C38 11, 45 16, 50 23 C55 16, 62 11, 69 11 C78 11, 87 16, 87 28 C87 42, 74 56, 50 74 Z"
+            fill="none"
+            stroke="rgba(255, 117, 151, 0.45)"
+            stroke-width="1.2"
+            stroke-dasharray="2 3"/>
+    </svg>
+
+    <div class="hr-content">
+      <div class="hr-title">DHIVYA</div>
+      <div class="hr-sub1">
+        <span class="c-ta">திவ்யா</span>
+        <span class="c-sep">✦</span>
+        <span class="c-ja">ディビヤ</span>
+      </div>
+      <div class="hr-sub2">
+        <span class="c-hi">दिव्या</span>
+        <span class="c-sep">✦</span>
+        <span class="c-ko">디비야</span>
+      </div>
+      <div class="hr-love">♥ FOREVER ♥</div>
+    </div>
+  </div>
+
+  <div class="hr-pills">
+    <div class="hr-pill"><b>TA</b><span>திவ்யா</span></div>
+    <div class="hr-pill"><b>JA</b><span>ディビヤ</span></div>
+    <div class="hr-pill"><b>HI</b><span>दिव्या</span></div>
+    <div class="hr-pill"><b>KO</b><span>디비야</span></div>
+    <div class="hr-pill"><b>AR</b><span>ديفيا</span></div>
+    <div class="hr-pill"><b>RU</b><span>Дивья</span></div>
+    <div class="hr-pill"><b>LAT</b><span>DIVYA</span></div>
+  </div>
+
+  <div class="hr-footer">
+    <span style="color:#39ff14">[✓]</span> BIOMETRIC HEARTBEAT SYNCHRONIZED ACROSS ALL REALMS
+  </div>
+</div>
 
 <span class="p">🔓 OVERRIDE SUCCESSFUL:</span> <span class="pc">Root clearance unlocked.</span>
 <span class="pd">Special encryption key verified: Heartbeat signature matched across all languages.</span>`;
